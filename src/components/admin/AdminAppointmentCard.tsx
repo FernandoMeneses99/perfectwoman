@@ -9,6 +9,8 @@ type AdminAppointmentCardProps = {
   updating: boolean
   onStatus: (appointment: AdminAppointment, status: 'confirmed' | 'completed' | 'no_show') => void
   onCancel: (appointment: AdminAppointment) => void
+  onReschedule: (appointment: AdminAppointment) => void
+  onNotes: (appointment: AdminAppointment) => void
 }
 
 const statusLabels: Record<AppointmentStatus, string> = {
@@ -38,6 +40,8 @@ export default function AdminAppointmentCard({
   updating,
   onStatus,
   onCancel,
+  onReschedule,
+  onNotes,
 }: AdminAppointmentCardProps) {
   const [expanded, setExpanded] = useState(false)
   const appointmentDate = dateInTimeZone(appointment.starts_at, siteConfig.timeZone)
@@ -195,6 +199,24 @@ export default function AdminAppointmentCard({
                 </button>
               </>
             )}
+
+            <button
+              className="border border-surface-container px-4 py-2 font-label-caps text-[10px] uppercase tracking-wider text-primary transition-colors hover:border-secondary disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={updating}
+              onClick={() => onReschedule(appointment)}
+              type="button"
+            >
+              Reprogramar
+            </button>
+
+            <button
+              className="border border-surface-container px-4 py-2 font-label-caps text-[10px] uppercase tracking-wider text-on-surface-variant transition-colors hover:border-secondary hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={updating}
+              onClick={() => onNotes(appointment)}
+              type="button"
+            >
+              Notas
+            </button>
 
             <button
               className="border border-error/40 px-4 py-2 font-label-caps text-[10px] uppercase tracking-wider text-error transition-colors hover:border-error hover:bg-error-container disabled:cursor-not-allowed disabled:opacity-50"

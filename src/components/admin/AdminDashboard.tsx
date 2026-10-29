@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import AdminAppointmentCard from './AdminAppointmentCard'
+import {
+  AdminCreateAppointmentDialog,
+  AdminNotesDialog,
+  AdminRescheduleDialog,
+} from './AdminAppointmentDialogs'
 import { siteConfig } from '../../data/site'
 import { addDays, dateInTimeZone, formatDateLong, formatTime, todayInTimeZone } from '../../lib/dates'
 import {
@@ -40,6 +45,9 @@ export default function AdminDashboard() {
   const [cancelReason, setCancelReason] = useState('')
   const [cancelError, setCancelError] = useState<string | null>(null)
   const [cancelling, setCancelling] = useState(false)
+  const [showCreate, setShowCreate] = useState(false)
+  const [rescheduleTarget, setRescheduleTarget] = useState<AdminAppointment | null>(null)
+  const [notesTarget, setNotesTarget] = useState<AdminAppointment | null>(null)
 
   const loadAppointments = useCallback(async () => {
     setLoading(true)
@@ -212,14 +220,24 @@ export default function AdminDashboard() {
           </p>
         </div>
 
-        <button
-          className="w-fit border border-surface-container bg-surface-container-lowest px-4 py-2.5 font-label-caps text-label-caps uppercase text-primary transition-colors hover:border-secondary disabled:cursor-not-allowed disabled:opacity-50"
-          disabled={loading}
-          onClick={() => void loadAppointments()}
-          type="button"
-        >
-          {loading ? 'Actualizando…' : 'Actualizar'}
-        </button>
+        <div className="flex flex-wrap gap-space-sm">
+          <button
+            className="w-fit bg-primary px-4 py-2.5 font-label-caps text-label-caps uppercase text-on-primary transition-colors hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-50"
+            disabled={loading}
+            onClick={() => setShowCreate(true)}
+            type="button"
+          >
+            Nueva cita
+          </button>
+          <button
+            className="w-fit border border-surface-container bg-surface-container-lowest px-4 py-2.5 font-label-caps text-label-caps uppercase text-primary transition-colors hover:border-secondary disabled:cursor-not-allowed disabled:opacity-50"
+            disabled={loading}
+            onClick={() => void loadAppointments()}
+            type="button"
+          >
+            {loading ? 'Actualizando…' : 'Actualizar'}
+          </button>
+        </div>
       </div>
 
       <div className="mt-space-lg grid grid-cols-1 gap-space-sm sm:grid-cols-3">
@@ -318,11 +336,48 @@ export default function AdminDashboard() {
             key={appointment.id}
             appointment={appointment}
             onCancel={openCancel}
+            onNotes={setNotesTarget}
+            onReschedule={setRescheduleTarget}
             onStatus={(target, status) => void changeStatus(target, status)}
             updating={updatingId === appointment.id}
           />
         ))}
       </div>
+
+      {showCreate && (
+        <AdminCreateAppointmentDialog
+          onClose={() => setShowCreate(false)}
+          onSaved={(message) => {
+            setShowCreate(false)
+            setActionMessage(message)
+            void loadAppointments()
+          }}
+        />
+      )}
+
+      {rescheduleTarget && (
+        <AdminRescheduleDialog
+          appointment={rescheduleTarget}
+          onClose={() => setRescheduleTarget(null)}
+          onSaved={(message) => {
+            setRescheduleTarget(null)
+            setActionMessage(message)
+            void loadAppointments()
+          }}
+        />
+      )}
+
+      {notesTarget && (
+        <AdminNotesDialog
+          appointment={notesTarget}
+          onClose={() => setNotesTarget(null)}
+          onSaved={(message) => {
+            setNotesTarget(null)
+            setActionMessage(message)
+            void loadAppointments()
+          }}
+        />
+      )}
 
       {cancelTarget && (
         <div

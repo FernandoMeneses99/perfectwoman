@@ -2,7 +2,13 @@ import { useEffect, useState } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import AdminDashboard from '../components/admin/AdminDashboard'
 import AdminLogin from '../components/admin/AdminLogin'
+import AdminProfessionalsManager from '../components/admin/AdminProfessionalsManager'
+import AdminScheduleManager from '../components/admin/AdminScheduleManager'
+import AdminServicesManager from '../components/admin/AdminServicesManager'
 import AdminShell from '../components/admin/AdminShell'
+import AdminTabs from '../components/admin/AdminTabs'
+import AdminUsersManager from '../components/admin/AdminUsersManager'
+import type { AdminSection } from '../components/admin/AdminTabs'
 import { siteConfig } from '../data/site'
 import { fetchAdminProfile, mapAccessError, signOutAdmin } from '../lib/admin'
 import type { AdminProfile } from '../lib/admin'
@@ -16,6 +22,7 @@ export default function AdminPage() {
   const [accessError, setAccessError] = useState<string | null>(null)
   const [accessRefreshKey, setAccessRefreshKey] = useState(0)
   const [signingOut, setSigningOut] = useState(false)
+  const [section, setSection] = useState<AdminSection>('agenda')
 
   const userId = session?.user.id
   const userEmail = session?.user.email ?? null
@@ -183,7 +190,17 @@ export default function AdminPage() {
       onSignOut={() => void handleSignOut()}
       signingOut={signingOut}
     >
-      <AdminDashboard />
+      <div className="mx-auto w-full max-w-7xl px-margin pb-space-xl md:px-margin-tablet lg:px-margin-desktop">
+        <div className="pt-space-md">
+          <AdminTabs active={section} onChange={setSection} />
+        </div>
+
+        {section === 'agenda' && <AdminDashboard />}
+        {section === 'horarios' && <AdminScheduleManager />}
+        {section === 'servicios' && <AdminServicesManager />}
+        {section === 'equipo' && <AdminProfessionalsManager />}
+        {section === 'admins' && <AdminUsersManager />}
+      </div>
     </AdminShell>
   )
 }
