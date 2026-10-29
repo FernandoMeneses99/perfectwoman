@@ -4,9 +4,10 @@ import {
   FaCut,
   FaUserShield,
   FaUserTie,
+  FaStamp,
 } from 'react-icons/fa'
 
-export type AdminSection = 'agenda' | 'horarios' | 'servicios' | 'equipo' | 'admins'
+export type AdminSection = 'agenda' | 'horarios' | 'servicios' | 'equipo' | 'fidelidad' | 'admins'
 
 type AdminTabsProps = {
   active: AdminSection
@@ -22,6 +23,7 @@ const tabs: Array<{
   { id: 'horarios', label: 'Horarios', icon: FaClock },
   { id: 'servicios', label: 'Servicios', icon: FaCut },
   { id: 'equipo', label: 'Equipo', icon: FaUserTie },
+  { id: 'fidelidad', label: 'Fidelidad', icon: FaStamp },
   { id: 'admins', label: 'Admins', icon: FaUserShield },
 ]
 

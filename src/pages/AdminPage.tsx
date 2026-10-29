@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import AdminDashboard from '../components/admin/AdminDashboard'
 import AdminLogin from '../components/admin/AdminLogin'
@@ -13,6 +13,7 @@ import AdminServicesManager from '../components/admin/AdminServicesManager'
 import AdminShell from '../components/admin/AdminShell'
 import AdminTabs from '../components/admin/AdminTabs'
 import AdminUsersManager from '../components/admin/AdminUsersManager'
+import AdminLoyaltyManager from '../components/admin/AdminLoyaltyManager'
 import type { AdminSection } from '../components/admin/AdminTabs'
 import { siteConfig } from '../data/site'
 import { fetchAdminProfile, mapAccessError, signOutAdmin } from '../lib/admin'
@@ -36,6 +37,7 @@ export default function AdminPage() {
   const [accessRefreshKey, setAccessRefreshKey] = useState(0)
   const [signingOut, setSigningOut] = useState(false)
   const [section, setSection] = useState<AdminSection>('agenda')
+  const lastAuthUserId = useRef<string | null>(null)
 
   const userId = session?.user.id
   const userEmail = session?.user.email ?? null
@@ -48,13 +50,22 @@ export default function AdminPage() {
         return
       }
 
+      lastAuthUserId.current = data.session?.user.id ?? null
       setSession(data.session)
+      setCheckingAccess(Boolean(data.session?.user.id))
       setCheckingSession(false)
     })
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      const nextUserId = nextSession?.user.id ?? null
+      if (lastAuthUserId.current !== nextUserId) {
+        lastAuthUserId.current = nextUserId
+        setProfile(null)
+        setAccessError(null)
+        setCheckingAccess(Boolean(nextUserId))
+      }
       setSession(nextSession)
       setCheckingSession(false)
     })
@@ -79,15 +90,10 @@ export default function AdminPage() {
 
   useEffect(() => {
     if (!userId) {
-      setProfile(null)
-      setAccessError(null)
-      setCheckingAccess(false)
       return
     }
 
     let active = true
-    setCheckingAccess(true)
-    setAccessError(null)
 
     fetchAdminProfile(userId)
       .then((nextProfile) => {
@@ -156,7 +162,11 @@ export default function AdminPage() {
           <div className="mt-space-lg flex flex-wrap justify-center gap-space-sm">
             <button
               className="bg-primary px-4 py-2.5 font-label-caps text-label-caps uppercase text-on-primary transition-colors hover:bg-secondary"
-              onClick={() => setAccessRefreshKey((value) => value + 1)}
+              onClick={() => {
+                setAccessError(null)
+                setCheckingAccess(true)
+                setAccessRefreshKey((value) => value + 1)
+              }}
               type="button"
             >
               Reintentar
@@ -213,6 +223,7 @@ export default function AdminPage() {
           {section === 'horarios' && <AdminScheduleManager />}
           {section === 'servicios' && <AdminServicesManager />}
           {section === 'equipo' && <AdminProfessionalsManager />}
+          {section === 'fidelidad' && <AdminLoyaltyManager />}
           {section === 'admins' && <AdminUsersManager />}
         </div>
       </AdminShell>

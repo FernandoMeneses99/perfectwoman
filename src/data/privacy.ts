@@ -8,8 +8,8 @@ export type PrivacySection = {
   paragraphsAfter?: string[]
 }
 
-export const privacyPolicyVersion = '2026-10-28'
-export const privacyPolicyUpdated = '28 de octubre de 2026'
+export const privacyPolicyVersion = '2026-10-29'
+export const privacyPolicyUpdated = '29 de octubre de 2026'
 
 export const privacyPolicyIntro =
   `${siteConfig.brand}, estudio de mirada y belleza con domicilio en Bogotá D.C., Colombia, es respetuoso de los datos personales de las personas que visitan este sitio web, solicitan una cita, se comunican por WhatsApp o Instagram o utilizan los canales de atención del estudio. En esta Política de Privacidad y Tratamiento de Datos Personales se establecen las finalidades, el alcance, las medidas y los procedimientos del tratamiento de los datos, así como los mecanismos con que los titulares cuentan para conocer, actualizar, rectificar o suprimir la información suministrada o revocar la autorización otorgada.`
@@ -74,6 +74,7 @@ export const privacyPolicySections: PrivacySection[] = [
     ],
     items: [
       'Gestionar solicitudes de disponibilidad, reservas, confirmaciones, reprogramaciones, cancelaciones y atención de los servicios del estudio.',
+      'Gestionar el programa de fidelización cuando la titular decide participar: emitir su tarjeta, registrar citas completadas, sellos y recompensas entregadas.',
       'Contactar a la titular por WhatsApp, llamada, mensaje de texto o correo electrónico para confirmar o recordar su cita y atender consultas relacionadas.',
       'Llevar el historial de servicios, preferencias y observaciones necesarias para prestar una atención adecuada.',
       'Cumplir obligaciones legales, contables, administrativas y de seguridad de la información.',
@@ -92,6 +93,7 @@ export const privacyPolicySections: PrivacySection[] = [
     items: [
       'Datos de identificación y contacto: nombre y apellidos, número de teléfono y correo electrónico opcional.',
       'Datos de la reserva: servicio solicitado, profesional, fecha y hora, estado de la cita, código de confirmación y notas que la titular decida incluir.',
+      'Datos del programa de fidelización, si la titular se inscribe: campaña elegida, aceptación registrada, citas que generan sellos, avance de la tarjeta y recompensas canjeadas.',
       'Datos de consentimiento: versión de la política aceptada, fecha, canal y hash de la dirección IP cuando se realiza una reserva en línea.',
       'Datos técnicos de seguridad: hashes de IP y registros de control de intentos de reserva para prevenir abusos.',
     ],
@@ -106,6 +108,7 @@ export const privacyPolicySections: PrivacySection[] = [
     paragraphs: [
       'Al marcar la casilla de consentimiento y enviar el formulario de reserva, la titular autoriza de forma previa, expresa e informada el tratamiento de sus datos para las finalidades descritas en esta política. La autorización es voluntaria; sin embargo, si no se otorga, no será posible gestionar la reserva en línea.',
       'La titular puede revocar la autorización o solicitar la supresión de sus datos cuando no exista un deber legal o contractual de conservarlos, mediante los canales indicados en esta política.',
+      'La participación en el programa de fidelización es voluntaria y separada de la reserva. El equipo registra la tarjeta solo cuando la titular ha recibido la información del programa y acepta participar. No se requiere aceptar mensajes promocionales para acumular sellos; cualquier promoción requiere una autorización independiente.',
     ],
   },
   {
