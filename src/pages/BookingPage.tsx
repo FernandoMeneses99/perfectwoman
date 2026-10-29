@@ -348,7 +348,7 @@ export default function BookingPage() {
                       <span className="mt-1 block font-title-lg text-title-lg uppercase text-primary">{service.name}</span>
                       <span className="mt-1 block font-body-sm text-body-sm text-on-surface-variant">
                         {service.duration_minutes} min ·{' '}
-                        {service.price_verified && service.price_cop !== null
+                        {service.price_cop !== null
                           ? `Cop ${service.price_cop.toLocaleString('es-CO')}`
                           : 'Precio por confirmar'}
                       </span>

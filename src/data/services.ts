@@ -5,7 +5,7 @@
   description: string
   duration: string
   durationVerified: boolean
-  priceCOP: number
+  priceCOP: number | null
   priceVerified: boolean
   image: string
   imageAlt: string
