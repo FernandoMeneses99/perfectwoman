@@ -1,4 +1,5 @@
-﻿import { siteConfig } from '../data/site'
+﻿import { Link } from 'react-router-dom'
+import { siteConfig } from '../data/site'
 
 export default function HeroSection() {
   return (
@@ -19,7 +20,7 @@ export default function HeroSection() {
             Realza tu belleza con servicios profesionales de pestañas y cejas. Arquitectura visagista de alta precisión y bienestar estético en el corazon de Bogotá.
           </p>
           <div className="mt-space-xl flex w-full flex-col gap-space-sm sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:gap-space-md">
-            <a className="w-full px-8 py-4 text-center bg-secondary-container text-primary font-label-caps text-label-caps uppercase tracking-widest shadow-[3px_3px_0px_#282329] hover:bg-secondary hover:text-on-secondary hover:shadow-[1px_1px_0px_#282329] transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 sm:w-auto" href={siteConfig.bookingHref}>Consultar disponibilidad</a>
+            <Link className="w-full px-8 py-4 text-center bg-secondary-container text-primary font-label-caps text-label-caps uppercase tracking-widest shadow-[3px_3px_0px_#282329] hover:bg-secondary hover:text-on-secondary hover:shadow-[1px_1px_0px_#282329] transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 sm:w-auto" to={siteConfig.bookingPath}>Reservar cita</Link>
             <a className="w-full px-7 py-4 text-center bg-surface-container-lowest text-primary font-label-caps text-label-caps uppercase tracking-wider shadow-sm hover:bg-surface-container transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2 sm:w-auto" href="#servicios">Explorar Servicios</a>
           </div>
           <div className="mt-space-2xl pt-space-md flex flex-wrap items-center gap-y-2 gap-x-6 text-on-surface-variant font-label-md text-label-md">

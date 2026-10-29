@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 type ServiceCardProps = {
   category: string
   name: string
@@ -21,7 +23,7 @@ export default function ServiceCard({
   priceVerified,
   image,
   imageAlt,
-  bookingHref = '#reservas',
+  bookingHref = '/reservas',
 }: ServiceCardProps) {
   return (
     <article className="group flex flex-col bg-surface-container-lowest shadow-sm transition-shadow hover:shadow-md">
@@ -41,9 +43,9 @@ export default function ServiceCard({
             {priceVerified ? 'COP ' + priceCOP.toLocaleString('es-CO') : 'Precio por confirmar'}
           </span>
         </div>
-        <a className="mt-space-md w-full bg-primary py-2.5 text-center font-label-caps text-label-caps uppercase tracking-wider text-on-primary transition-colors hover:bg-secondary" href={bookingHref}>
-          Consultar este servicio
-        </a>
+        <Link className="mt-space-md w-full bg-primary py-2.5 text-center font-label-caps text-label-caps uppercase tracking-wider text-on-primary transition-colors hover:bg-secondary" to={bookingHref}>
+          Reservar este servicio
+        </Link>
       </div>
     </article>
   )

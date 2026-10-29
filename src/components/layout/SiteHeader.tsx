@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 import { navLinks } from '../../data/nav'
 import { siteConfig } from '../../data/site'
 
@@ -34,11 +35,11 @@ export default function SiteHeader() {
               WhatsApp no configurado
             </span>
           )}
-          <a className="bg-secondary px-2 py-2.5 text-[9px] font-label-caps uppercase tracking-normal text-on-secondary transition-colors hover:bg-tertiary-container hover:text-on-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 sm:px-4 sm:text-label-caps md:px-5" href={siteConfig.bookingHref}>
-            <span className="sm:hidden">Consulta</span>
-            <span className="hidden sm:inline md:hidden">Consulta</span>
-            <span className="hidden md:inline">Consultar disponibilidad</span>
-          </a>
+          <Link className="bg-secondary px-2 py-2.5 text-[9px] font-label-caps uppercase tracking-normal text-on-secondary transition-colors hover:bg-tertiary-container hover:text-on-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 sm:px-4 sm:text-label-caps md:px-5" to={siteConfig.bookingPath}>
+            <span className="sm:hidden">Reservar</span>
+            <span className="hidden sm:inline md:hidden">Reservar</span>
+            <span className="hidden md:inline">Reservar cita</span>
+          </Link>
           <button
             className="flex h-10 w-10 items-center justify-center text-on-surface-variant transition-colors hover:bg-surface-container hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2 xl:hidden"
             aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
@@ -58,9 +59,9 @@ export default function SiteHeader() {
                 {link.label}
               </a>
             ))}
-            <a href={siteConfig.bookingHref} className="mt-space-sm bg-secondary px-5 py-2.5 text-center font-label-caps text-label-caps uppercase tracking-widest text-on-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2" onClick={() => setOpen(false)}>
-              Consultar disponibilidad
-            </a>
+            <Link className="mt-space-sm bg-secondary px-5 py-2.5 text-center font-label-caps text-label-caps uppercase tracking-widest text-on-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2" onClick={() => setOpen(false)} to={siteConfig.bookingPath}>
+              Reservar cita
+            </Link>
           </nav>
         </div>
       )}

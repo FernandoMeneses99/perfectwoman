@@ -1,4 +1,5 @@
 import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 import { navLinks } from '../../data/nav'
 import { siteConfig } from '../../data/site'
 
@@ -36,15 +37,15 @@ export default function SiteFooter() {
           <div className="flex flex-col lg:col-span-3">
             <span className="font-label-caps text-label-caps uppercase tracking-widest text-primary">Contacto</span>
             <p className="mt-space-md font-body-md text-body-md text-on-surface-variant">
-              {siteConfig.location}<br />Consulta por WhatsApp o Instagram.
+              {siteConfig.location}<br />Reserva en línea o escríbenos por WhatsApp.
             </p>
             <div className="mt-space-md flex items-center gap-space-sm">
               <a aria-label="Instagram" className="flex h-9 w-9 items-center justify-center bg-surface-container text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-secondary" href={siteConfig.instagram} rel="noopener noreferrer" target="_blank">
                 <FaInstagram aria-hidden="true" className="text-[18px]" />
               </a>
-              <a aria-label="Información de contacto" className="flex h-9 w-9 items-center justify-center bg-surface-container text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-secondary" href="#reservas">
-                <span className="material-symbols-outlined text-[18px]">info</span>
-              </a>
+              <Link aria-label="Reservar cita" className="flex h-9 w-9 items-center justify-center bg-surface-container text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-secondary" to={siteConfig.bookingPath}>
+                <span className="material-symbols-outlined text-[18px]">calendar_month</span>
+              </Link>
               {siteConfig.whatsapp ? (
                 <a aria-label="WhatsApp" className="flex items-center gap-2 font-body-sm text-body-sm text-on-surface-variant hover:text-secondary" href={siteConfig.whatsapp} rel="noopener noreferrer" target="_blank"><FaWhatsapp aria-hidden="true" className="text-lg" />WhatsApp</a>
               ) : (
@@ -52,13 +53,18 @@ export default function SiteFooter() {
               )}
             </div>
             <div className="mt-space-lg">
-              <a className="inline-block bg-primary px-4 py-2 font-label-caps text-label-caps uppercase text-on-primary transition-colors hover:bg-secondary hover:text-on-secondary" href={siteConfig.bookingHref}>Consultar disponibilidad</a>
+              <Link className="inline-block bg-primary px-4 py-2 font-label-caps text-label-caps uppercase text-on-primary transition-colors hover:bg-secondary hover:text-on-secondary" to={siteConfig.bookingPath}>Reservar cita</Link>
             </div>
           </div>
         </div>
         <div className="mt-space-2xl flex flex-col items-start justify-between gap-space-md pt-space-lg text-on-surface-variant md:flex-row md:items-center">
           <p className="max-w-xl font-body-sm text-body-sm">Precios y duraciones por confirmar. Consulta la información vigente por WhatsApp o Instagram.</p>
-          <p className="font-body-sm text-body-sm">© 2026 {siteConfig.brand}. Todos los derechos reservados · {siteConfig.location}.</p>
+          <p className="font-body-sm text-body-sm">
+            © 2026 {siteConfig.brand}. Todos los derechos reservados · {siteConfig.location} ·{' '}
+            <Link className="underline decoration-secondary/40 underline-offset-2 hover:text-primary" to={siteConfig.privacyPath}>
+              Política de privacidad
+            </Link>
+          </p>
         </div>
       </div>
     </footer>

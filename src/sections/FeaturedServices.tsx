@@ -1,5 +1,5 @@
 ﻿import { services } from '../data/services'
-import { siteConfig } from '../data/site'
+import { serviceBookingHref } from '../data/site'
 import ServiceCard from '../components/ui/ServiceCard'
 
 export default function FeaturedServices() {
@@ -17,7 +17,7 @@ export default function FeaturedServices() {
         </div>
         <div className="mt-space-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
           {services.map((s) => (
-            <ServiceCard key={s.id} category={s.category} name={s.name} description={s.description} duration={s.duration} durationVerified={s.durationVerified} priceCOP={s.priceCOP} priceVerified={s.priceVerified} image={s.image} imageAlt={s.imageAlt} bookingHref={siteConfig.bookingHref} />
+            <ServiceCard key={s.id} category={s.category} name={s.name} description={s.description} duration={s.duration} durationVerified={s.durationVerified} priceCOP={s.priceCOP} priceVerified={s.priceVerified} image={s.image} imageAlt={s.imageAlt} bookingHref={serviceBookingHref(s.id)} />
           ))}
         </div>
       </div>

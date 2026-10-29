@@ -1,4 +1,5 @@
-﻿import { siteConfig } from '../data/site'
+﻿import { Link } from 'react-router-dom'
+import { siteConfig } from '../data/site'
 
 export default function SpecialistSection() {
   return (
@@ -59,9 +60,9 @@ export default function SpecialistSection() {
             </cite>
           </blockquote>
           <div className="mt-space-xl">
-            <a className="px-6 py-3 bg-primary text-on-primary font-label-caps text-label-caps uppercase tracking-widest hover:bg-secondary transition-colors shadow-sm" href={siteConfig.bookingHref}>
-              Consultar disponibilidad
-            </a>
+            <Link className="px-6 py-3 bg-primary text-on-primary font-label-caps text-label-caps uppercase tracking-widest hover:bg-secondary transition-colors shadow-sm" to={siteConfig.bookingPath}>
+              Reservar cita
+            </Link>
           </div>
         </div>
       </div>
