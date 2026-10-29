@@ -8,6 +8,7 @@ import SpecialistSection from '../sections/SpecialistSection'
 import GallerySection from '../sections/GallerySection'
 import TestimonialsSection from '../sections/TestimonialsSection'
 import BookingCTA from '../sections/BookingCTA'
+import FloatingClientActions from '../components/FloatingClientActions'
 
 export default function Home() {
   usePageMeta({
@@ -31,6 +32,7 @@ export default function Home() {
         </div>
       </main>
       <SiteFooter />
+      <FloatingClientActions />
     </>
   )
 }
