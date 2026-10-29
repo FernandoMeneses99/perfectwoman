@@ -1,3 +1,4 @@
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import { siteConfig } from '../data/site'
 
 export default function BookingCTA() {
@@ -17,14 +18,14 @@ export default function BookingCTA() {
             Ver servicios
           </a>
           {siteConfig.whatsapp ? (
-            <a className="px-5 py-4 font-label-caps text-label-caps uppercase tracking-wider text-primary-fixed-dim" href={siteConfig.whatsapp} rel="noopener noreferrer" target="_blank">Abrir chat de WhatsApp</a>
+            <a className="flex items-center gap-2 px-5 py-4 font-label-caps text-label-caps uppercase tracking-wider text-primary-fixed-dim" href={siteConfig.whatsapp} rel="noopener noreferrer" target="_blank"><FaWhatsapp aria-hidden="true" className="text-lg" />Abrir chat de WhatsApp</a>
           ) : (
             <span className="px-5 py-4 font-label-caps text-label-caps uppercase tracking-wider text-primary-fixed-dim" aria-label="WhatsApp no configurado">
               WhatsApp no configurado
             </span>
           )}
           <a className="flex items-center gap-2 px-6 py-4 font-label-caps text-label-caps uppercase tracking-wider text-surface-bright transition-colors hover:text-secondary-fixed" href={siteConfig.instagram} rel="noopener noreferrer" target="_blank">
-            <span className="material-symbols-outlined text-[18px]">photo_camera</span>
+            <FaInstagram aria-hidden="true" className="text-[18px]" />
             <span>Consultar por Instagram</span>
           </a>
         </div>

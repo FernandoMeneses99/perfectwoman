@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import { navLinks } from '../../data/nav'
 import { siteConfig } from '../../data/site'
 
@@ -21,11 +22,11 @@ export default function SiteHeader() {
         </nav>
         <div className="flex shrink-0 items-center gap-1 sm:gap-space-md">
           <a aria-label="Instagram oficial" className="hidden h-10 w-10 items-center justify-center text-on-surface-variant transition-colors hover:bg-surface-container hover:text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2 sm:flex" href={siteConfig.instagram} rel="noopener noreferrer" target="_blank">
-            <span className="material-symbols-outlined text-[20px]">photo_camera</span>
+            <FaInstagram aria-hidden="true" className="text-[20px]" />
           </a>
           {siteConfig.whatsapp ? (
             <a aria-label="WhatsApp" className="hidden items-center gap-space-xs px-3 py-2 font-label-caps text-label-caps text-on-surface-variant transition-colors hover:bg-surface-container sm:flex" href={siteConfig.whatsapp} rel="noopener noreferrer" target="_blank">
-              <span className="material-symbols-outlined text-[18px]">chat</span>
+              <FaWhatsapp aria-hidden="true" className="text-[18px]" />
               <span>WhatsApp</span>
             </a>
           ) : (

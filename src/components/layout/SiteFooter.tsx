@@ -1,3 +1,4 @@
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import { navLinks } from '../../data/nav'
 import { siteConfig } from '../../data/site'
 
@@ -39,13 +40,13 @@ export default function SiteFooter() {
             </p>
             <div className="mt-space-md flex items-center gap-space-sm">
               <a aria-label="Instagram" className="flex h-9 w-9 items-center justify-center bg-surface-container text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-secondary" href={siteConfig.instagram} rel="noopener noreferrer" target="_blank">
-                <span className="material-symbols-outlined text-[18px]">photo_camera</span>
+                <FaInstagram aria-hidden="true" className="text-[18px]" />
               </a>
               <a aria-label="Información de contacto" className="flex h-9 w-9 items-center justify-center bg-surface-container text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-secondary" href="#reservas">
                 <span className="material-symbols-outlined text-[18px]">info</span>
               </a>
               {siteConfig.whatsapp ? (
-                <a aria-label="WhatsApp" className="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary" href={siteConfig.whatsapp} rel="noopener noreferrer" target="_blank">WhatsApp</a>
+                <a aria-label="WhatsApp" className="flex items-center gap-2 font-body-sm text-body-sm text-on-surface-variant hover:text-secondary" href={siteConfig.whatsapp} rel="noopener noreferrer" target="_blank"><FaWhatsapp aria-hidden="true" className="text-lg" />WhatsApp</a>
               ) : (
                 <span className="font-body-sm text-body-sm text-on-surface-variant">WhatsApp no configurado</span>
               )}
