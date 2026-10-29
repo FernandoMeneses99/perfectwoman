@@ -1,6 +1,7 @@
 ﻿import { useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
+import AdminPage from './pages/AdminPage'
 import BookingPage from './pages/BookingPage'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import './App.css'
@@ -32,6 +33,7 @@ function App() {
         <Route element={<Home />} path="/" />
         <Route element={<BookingPage />} path="/reservas" />
         <Route element={<PrivacyPolicyPage />} path="/politica-privacidad" />
+        <Route element={<AdminPage />} path="/gestion-perfectwoman" />
         <Route element={<Navigate replace to="/" />} path="*" />
       </Routes>
     </BrowserRouter>

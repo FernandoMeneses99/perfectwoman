@@ -10,6 +10,8 @@ export const siteConfig = {
   privacyEmail: 'fernandomenesesda@gmail.com',
   privacyPhone: '+57 302 409 0623',
   location: 'Bogotá, Colombia',
+  timeZone: 'America/Bogota',
+  adminPath: '/gestion-perfectwoman',
 }
 
 export function serviceBookingHref(slug: string): string {

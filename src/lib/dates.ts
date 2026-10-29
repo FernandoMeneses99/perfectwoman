@@ -7,6 +7,15 @@ export function todayInTimeZone(timeZone: string): string {
   }).format(new Date())
 }
 
+export function dateInTimeZone(iso: string, timeZone: string): string {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date(iso))
+}
+
 export function addDays(date: string, days: number): string {
   const value = new Date(`${date}T12:00:00Z`)
   value.setUTCDate(value.getUTCDate() + days)
