@@ -10,9 +10,6 @@
               Miradas reales transformadas con precisión artesanal en nuestro atelier de Bogotá.
             </p>
           </div>
-          <a className="px-6 py-3 bg-surface-container-lowest text-primary font-label-caps text-label-caps uppercase tracking-widest shadow-sm hover:bg-primary hover:text-on-primary transition-all" href="#galeria">
-            Ver galería completa y detalles
-          </a>
         </div>
         <div className="mt-space-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-gutter items-stretch">
           <div className="lg:col-span-7 relative group overflow-hidden bg-surface-container-high shadow-sm aspect-[16/10] sm:aspect-auto sm:min-h-[380px]">

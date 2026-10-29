@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { navLinks } from '../../data/nav'
 import { siteConfig } from '../../data/site'
 
@@ -6,33 +6,41 @@ export default function SiteHeader() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
-      <div className="h-20 w-full px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between">
-        <a className="flex flex-col group" href="#inicio">
-          <span className="font-headline-sm text-headline-sm uppercase tracking-wider text-primary group-hover:text-secondary transition-colors">{siteConfig.brand}</span>
-          <span className="font-label-caps text-label-caps text-on-surface-variant uppercase">{siteConfig.descriptor}</span>
+    <header className="fixed left-0 right-0 top-0 z-50 bg-surface/95 shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+      <div className="flex h-20 w-full items-center justify-between px-margin md:px-margin-tablet lg:px-margin-desktop">
+        <a className="group flex min-w-0 flex-col" href="#inicio">
+          <span className="font-headline-sm text-[14px] uppercase tracking-wider text-primary transition-colors group-hover:text-secondary sm:text-headline-sm">{siteConfig.brand}</span>
+          <span className="font-label-caps text-[7px] uppercase tracking-normal text-on-surface-variant sm:text-label-caps">{siteConfig.descriptor}</span>
         </a>
-        <nav className="hidden xl:flex items-center gap-space-lg" aria-label="Navegacion principal">
+        <nav className="hidden items-center gap-space-lg xl:flex" aria-label="Navegación principal">
           {navLinks.map((link) => (
-            <a key={link.path} href={link.href} className="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-on-surface transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2">
+            <a key={link.path} href={link.href} className="font-label-caps text-label-caps uppercase text-on-surface-variant transition-colors hover:text-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2">
               {link.label}
             </a>
           ))}
         </nav>
-        <div className="flex items-center gap-space-sm sm:gap-space-md">
-          <a aria-label="Instagram oficial" className="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-secondary hover:bg-surface-container transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2" href={siteConfig.instagram} rel="noopener noreferrer" target="_blank">
+        <div className="flex shrink-0 items-center gap-1 sm:gap-space-md">
+          <a aria-label="Instagram oficial" className="hidden h-10 w-10 items-center justify-center text-on-surface-variant transition-colors hover:bg-surface-container hover:text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2 sm:flex" href={siteConfig.instagram} rel="noopener noreferrer" target="_blank">
             <span className="material-symbols-outlined text-[20px]">photo_camera</span>
           </a>
-          <a aria-label="WhatsApp Studio Bogota" className="hidden sm:flex items-center gap-space-xs px-3 py-2 text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2" href={siteConfig.whatsapp} rel="noopener noreferrer" target="_blank">
-            <span className="material-symbols-outlined text-[18px]">chat</span>
-            <span className="font-label-caps text-label-caps uppercase">+57 Bogota</span>
-          </a>
-          <a className="px-5 py-2.5 bg-secondary text-on-secondary font-label-caps text-label-caps uppercase tracking-widest hover:bg-tertiary-container hover:text-on-tertiary transition-colors shadow-[0_1px_8px_rgba(0,0,0,0.04)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2" href={siteConfig.bookingHref}>
-            Reservar Cita
+          {siteConfig.whatsapp ? (
+            <a aria-label="WhatsApp" className="hidden items-center gap-space-xs px-3 py-2 font-label-caps text-label-caps text-on-surface-variant transition-colors hover:bg-surface-container sm:flex" href={siteConfig.whatsapp} rel="noopener noreferrer" target="_blank">
+              <span className="material-symbols-outlined text-[18px]">chat</span>
+              <span>WhatsApp</span>
+            </a>
+          ) : (
+            <span className="hidden px-2 py-2 font-label-caps text-label-caps text-on-surface-variant xl:inline" aria-label="WhatsApp no configurado">
+              WhatsApp no configurado
+            </span>
+          )}
+          <a className="bg-secondary px-2 py-2.5 text-[9px] font-label-caps uppercase tracking-normal text-on-secondary transition-colors hover:bg-tertiary-container hover:text-on-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 sm:px-4 sm:text-label-caps md:px-5" href={siteConfig.bookingHref}>
+            <span className="sm:hidden">Consulta</span>
+            <span className="hidden sm:inline md:hidden">Consulta</span>
+            <span className="hidden md:inline">Consultar disponibilidad</span>
           </a>
           <button
-            className="xl:hidden w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2"
-            aria-label={open ? 'Cerrar menu' : 'Abrir menu'}
+            className="flex h-10 w-10 items-center justify-center text-on-surface-variant transition-colors hover:bg-surface-container hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2 xl:hidden"
+            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen(!open)}
@@ -42,15 +50,15 @@ export default function SiteHeader() {
         </div>
       </div>
       {open && (
-        <div id="mobile-menu" className="xl:hidden absolute top-20 left-0 right-0 bg-surface/95 backdrop-blur-md border-t border-surface-container shadow-md">
-          <nav className="flex flex-col px-margin py-space-md gap-space-sm" aria-label="Navegacion movil">
+        <div id="mobile-menu" className="absolute left-0 right-0 top-20 border-t border-surface-container bg-surface shadow-md xl:hidden">
+          <nav className="flex flex-col gap-space-sm px-margin py-space-md" aria-label="Navegación móvil">
             {navLinks.map((link) => (
-              <a key={link.path} href={link.href} className="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-on-surface transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2" onClick={() => setOpen(false)}>
+              <a key={link.path} href={link.href} className="font-label-caps text-label-caps uppercase text-on-surface-variant transition-colors hover:text-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2" onClick={() => setOpen(false)}>
                 {link.label}
               </a>
             ))}
-            <a href={siteConfig.bookingHref} className="mt-space-sm px-5 py-2.5 bg-secondary text-on-secondary font-label-caps text-label-caps uppercase tracking-widest text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2" onClick={() => setOpen(false)}>
-              Reservar Cita
+            <a href={siteConfig.bookingHref} className="mt-space-sm bg-secondary px-5 py-2.5 text-center font-label-caps text-label-caps uppercase tracking-widest text-on-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2" onClick={() => setOpen(false)}>
+              Consultar disponibilidad
             </a>
           </nav>
         </div>

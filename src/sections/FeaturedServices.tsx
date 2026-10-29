@@ -14,14 +14,10 @@ export default function FeaturedServices() {
               Tratamientos diseñados para armonizar y potenciar la expresión natural de tu rostro con proporciones arquitectónicas.
             </p>
           </div>
-          <a className="font-label-caps text-label-caps uppercase text-secondary hover:text-primary transition-colors flex items-center gap-1 group pb-2" href="#servicios">
-            <span>Ver catálogo completo con todas las categorías</span>
-            <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-          </a>
         </div>
         <div className="mt-space-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
           {services.map((s) => (
-            <ServiceCard key={s.id} category={s.category} name={s.name} description={s.description} duration={s.duration} priceCOP={s.priceCOP} image={s.image} imageAlt={s.imageAlt} bookingHref={siteConfig.bookingHref} />
+            <ServiceCard key={s.id} category={s.category} name={s.name} description={s.description} duration={s.duration} durationVerified={s.durationVerified} priceCOP={s.priceCOP} priceVerified={s.priceVerified} image={s.image} imageAlt={s.imageAlt} bookingHref={siteConfig.bookingHref} />
           ))}
         </div>
       </div>

@@ -1,38 +1,36 @@
-﻿import { siteConfig } from '../data/site'
+import { siteConfig } from '../data/site'
 
 export default function BookingCTA() {
   return (
-    <section id="reservas" className="w-full bg-primary text-on-primary py-space-3xl px-margin md:px-margin-tablet lg:px-margin-desktop relative overflow-hidden">
-      <div className="absolute -right-20 -bottom-20 w-96 h-96 bg-secondary-container/20 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute left-1/4 -top-20 w-80 h-80 bg-tertiary-container/30 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="relative max-w-5xl mx-auto flex flex-col items-center text-center">
-        <span className="font-label-caps text-label-caps uppercase text-secondary-fixed tracking-widest">
-          Atención con Cita Previa · Bogotá, Colombia
-        </span>
-        <h2 className="mt-space-md font-headline-lg text-headline-lg-mobile md:text-headline-lg uppercase tracking-tight text-surface-bright max-w-3xl leading-tight">
-          ¿Lista para transformar tu mirada?
+    <section id="reservas" className="relative w-full overflow-hidden bg-primary px-margin py-space-3xl text-on-primary md:px-margin-tablet lg:px-margin-desktop">
+      <div className="pointer-events-none absolute -bottom-20 -right-20 h-96 w-96 rounded-full bg-secondary-container/20 blur-3xl"></div>
+      <div className="relative mx-auto flex max-w-5xl flex-col items-center text-center">
+        <span className="font-label-caps text-label-caps uppercase tracking-widest text-secondary-fixed">Consultas de servicios · Bogotá, Colombia</span>
+        <h2 className="mt-space-md max-w-3xl font-headline-lg text-headline-lg-mobile uppercase leading-tight tracking-tight text-surface-bright md:text-headline-lg">
+          Hablemos de tu próxima cita
         </h2>
-        <p className="mt-space-md font-body-lg text-body-lg text-primary-fixed-dim max-w-xl">
-          Reserva tu espacio exclusivo en nuestro atelier. Te asesoramos paso a paso para conseguir el resultado que siempre soñaste.
+        <p className="mt-space-md max-w-xl font-body-lg text-body-lg text-primary-fixed-dim">
+          Pregunta por servicios y disponibilidad por WhatsApp o Instagram.
         </p>
-        <div className="mt-space-xl flex flex-wrap items-center justify-center gap-space-md w-full">
-          <a className="px-8 py-4 bg-secondary-container text-primary font-label-caps text-label-caps uppercase tracking-widest shadow-[3px_3px_0px_#ffffff] hover:bg-secondary hover:text-on-secondary transition-all" href={siteConfig.bookingHref}>
-            Reservar Cita Online
+        <div className="mt-space-xl flex w-full flex-wrap items-center justify-center gap-space-md">
+          <a className="bg-secondary-container px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest text-primary shadow-[3px_3px_0px_#ffffff] transition-colors hover:bg-secondary hover:text-on-secondary" href="#servicios">
+            Ver servicios
           </a>
-          <a className="px-7 py-4 bg-surface-container-high text-primary font-label-caps text-label-caps uppercase tracking-wider flex items-center gap-2 hover:bg-surface-bright transition-colors shadow-sm" href={siteConfig.whatsapp} rel="noopener noreferrer" target="_blank">
-            <span className="material-symbols-outlined text-[18px] text-secondary">chat</span>
-            <span>Contactar por WhatsApp (+57 Bogotá)</span>
-          </a>
-          <a className="px-6 py-4 bg-transparent text-surface-bright font-label-caps text-label-caps uppercase tracking-wider flex items-center gap-2 hover:text-secondary-fixed transition-colors" href={siteConfig.instagram} rel="noopener noreferrer" target="_blank">
+          {siteConfig.whatsapp ? (
+            <a className="px-5 py-4 font-label-caps text-label-caps uppercase tracking-wider text-primary-fixed-dim" href={siteConfig.whatsapp} rel="noopener noreferrer" target="_blank">Abrir chat de WhatsApp</a>
+          ) : (
+            <span className="px-5 py-4 font-label-caps text-label-caps uppercase tracking-wider text-primary-fixed-dim" aria-label="WhatsApp no configurado">
+              WhatsApp no configurado
+            </span>
+          )}
+          <a className="flex items-center gap-2 px-6 py-4 font-label-caps text-label-caps uppercase tracking-wider text-surface-bright transition-colors hover:text-secondary-fixed" href={siteConfig.instagram} rel="noopener noreferrer" target="_blank">
             <span className="material-symbols-outlined text-[18px]">photo_camera</span>
-            <span>@perfectwoman_t</span>
+            <span>Consultar por Instagram</span>
           </a>
         </div>
-        <div className="mt-space-2xl pt-space-md text-on-primary-container max-w-2xl">
-          <p className="font-body-sm text-body-sm text-outline-variant">
-            Nota aclaratoria: Todos los precios, duraciones, horarios y reseñas mostrados son ilustrativos/configurables. No se ha habilitado backend aún. Cita previa obligatoria.
-          </p>
-        </div>
+        <p className="mt-space-2xl max-w-2xl font-body-sm text-body-sm text-outline-variant">
+          El sitio no recibe reservas en línea. Escríbenos por WhatsApp o Instagram para consultar servicios y disponibilidad.
+        </p>
       </div>
     </section>
   )

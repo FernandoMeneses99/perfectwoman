@@ -78,6 +78,7 @@ export default {
         'space-xl': '2.5rem',
       },
       fontFamily: {
+        'editorial': ['Cormorant Garamond', 'Georgia', 'serif'],
         'headline-sm': ['Syne'],
         'headline-lg': ['Syne'],
         'headline-md': ['Syne'],

@@ -27,25 +27,25 @@ export default function SpecialistSection() {
             Conoce a tu Especialista
           </h2>
           <p className="mt-space-md font-body-lg text-body-lg text-on-surface-variant">
-            Más de un lustro perfeccionando técnicas de visagismo de cejas y extensiones de pestañas seguras y personalizadas en Bogotá. Creemos que la belleza notiene moldes idénticos: cada mirada requiere un estudio minucioso de ángulos, estructura ósea y estilo de vida.
+            Más de cinco años de experiencia en servicios de pestañas y cejas en Bogotá. Cada persona puede consultar las opciones disponibles según su estilo.
           </p>
           <div className="mt-space-lg grid grid-cols-1 sm:grid-cols-2 gap-space-md w-full">
             <div className="p-space-md bg-surface-container-lowest shadow-sm">
               <div className="flex items-center gap-space-xs text-primary font-title-lg text-title-lg">
                 <span className="material-symbols-outlined text-secondary text-[22px]">health_and_safety</span>
-                <span>Bioseguridad</span>
+                <span>Información del servicio</span>
               </div>
               <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                Materiales desechables, esterilización adecuada y adhesivos hipoalergénicos.
+                Consulta por Instagram los materiales y protocolos vigentes del servicio.
               </p>
             </div>
             <div className="p-space-md bg-surface-container-lowest shadow-sm">
               <div className="flex items-center gap-space-xs text-primary font-title-lg text-title-lg">
                 <span className="material-symbols-outlined text-secondary text-[22px]">architecture</span>
-                <span>Asesoría Visagista</span>
+                <span>Servicios del estudio</span>
               </div>
               <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                Diagnóstico previo para determinar la curvatura y longitud que equilibra tu rostro.
+                Pestañas, cejas, depilación, lifting y cuidado de la piel.
               </p>
             </div>
           </div>
@@ -60,7 +60,7 @@ export default function SpecialistSection() {
           </blockquote>
           <div className="mt-space-xl">
             <a className="px-6 py-3 bg-primary text-on-primary font-label-caps text-label-caps uppercase tracking-widest hover:bg-secondary transition-colors shadow-sm" href={siteConfig.bookingHref}>
-              Conocer más sobre mi método
+              Consultar disponibilidad
             </a>
           </div>
         </div>
