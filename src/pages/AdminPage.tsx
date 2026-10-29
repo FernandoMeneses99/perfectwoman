@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import AdminDashboard from '../components/admin/AdminDashboard'
 import AdminLogin from '../components/admin/AdminLogin'
+import {
+  ADMIN_OPEN_AGENDA_EVENT,
+  AdminAlertsButton,
+  AdminNotificationsProvider,
+} from '../components/admin/AdminNotifications'
 import AdminProfessionalsManager from '../components/admin/AdminProfessionalsManager'
 import AdminScheduleManager from '../components/admin/AdminScheduleManager'
 import AdminServicesManager from '../components/admin/AdminServicesManager'
@@ -57,6 +62,18 @@ export default function AdminPage() {
     return () => {
       active = false
       subscription.unsubscribe()
+    }
+  }, [])
+
+  useEffect(() => {
+    function openAgenda() {
+      setSection('agenda')
+    }
+
+    window.addEventListener(ADMIN_OPEN_AGENDA_EVENT, openAgenda)
+
+    return () => {
+      window.removeEventListener(ADMIN_OPEN_AGENDA_EVENT, openAgenda)
     }
   }, [])
 
@@ -179,24 +196,27 @@ export default function AdminPage() {
   }
 
   return (
-    <AdminShell
-      adminName={profile.display_name}
-      email={profile.email}
-      onSignOut={() => void handleSignOut()}
-      signingOut={signingOut}
-    >
-      <div className="mx-auto w-full max-w-7xl px-margin pb-space-xl md:px-margin-tablet lg:px-margin-desktop">
-        <div className="pt-space-md">
-          <AdminTabs active={section} onChange={setSection} />
-        </div>
+    <AdminNotificationsProvider>
+      <AdminShell
+        adminName={profile.display_name}
+        alerts={<AdminAlertsButton />}
+        email={profile.email}
+        onSignOut={() => void handleSignOut()}
+        signingOut={signingOut}
+      >
+        <div className="mx-auto w-full max-w-7xl px-margin pb-space-xl md:px-margin-tablet lg:px-margin-desktop">
+          <div className="pt-space-md">
+            <AdminTabs active={section} onChange={setSection} />
+          </div>
 
-        {section === 'agenda' && <AdminDashboard />}
-        {section === 'horarios' && <AdminScheduleManager />}
-        {section === 'servicios' && <AdminServicesManager />}
-        {section === 'equipo' && <AdminProfessionalsManager />}
-        {section === 'admins' && <AdminUsersManager />}
-      </div>
-    </AdminShell>
+          {section === 'agenda' && <AdminDashboard />}
+          {section === 'horarios' && <AdminScheduleManager />}
+          {section === 'servicios' && <AdminServicesManager />}
+          {section === 'equipo' && <AdminProfessionalsManager />}
+          {section === 'admins' && <AdminUsersManager />}
+        </div>
+      </AdminShell>
+    </AdminNotificationsProvider>
   )
 }
 

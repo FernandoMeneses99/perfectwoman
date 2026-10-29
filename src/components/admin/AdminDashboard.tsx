@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { ADMIN_APPOINTMENT_CREATED_EVENT } from './AdminNotifications'
 import AdminAppointmentCard from './AdminAppointmentCard'
 import {
   AdminCreateAppointmentDialog,
@@ -64,6 +65,18 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     void loadAppointments()
+  }, [loadAppointments])
+
+  useEffect(() => {
+    function handleNewAppointment() {
+      void loadAppointments()
+    }
+
+    window.addEventListener(ADMIN_APPOINTMENT_CREATED_EVENT, handleNewAppointment)
+
+    return () => {
+      window.removeEventListener(ADMIN_APPOINTMENT_CREATED_EVENT, handleNewAppointment)
+    }
   }, [loadAppointments])
 
   useEffect(() => {

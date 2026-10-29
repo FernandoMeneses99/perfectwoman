@@ -6,6 +6,7 @@ import { siteConfig } from '../../data/site'
 type AdminShellProps = {
   children: ReactNode
   adminName?: string | null
+  alerts?: ReactNode
   email?: string | null
   onSignOut?: () => void
   signingOut?: boolean
@@ -14,6 +15,7 @@ type AdminShellProps = {
 export default function AdminShell({
   children,
   adminName,
+  alerts,
   email,
   onSignOut,
   signingOut = false,
@@ -38,6 +40,8 @@ export default function AdminShell({
           </div>
 
           <div className="flex flex-wrap items-center gap-space-sm sm:justify-end">
+            {alerts}
+
             <Link
               className="flex items-center gap-2 font-label-caps text-label-caps uppercase text-on-surface-variant transition-colors hover:text-primary"
               to="/"

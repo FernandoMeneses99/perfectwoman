@@ -64,6 +64,25 @@ export type CreateAdminAppointmentInput = {
   status: 'pending' | 'confirmed'
 }
 
+const adminAppointmentSelect = `
+  id,
+  confirmation_code,
+  status,
+  starts_at,
+  ends_at,
+  source,
+  notes,
+  admin_notes,
+  cancellation_reason,
+  confirmed_at,
+  completed_at,
+  cancelled_at,
+  created_at,
+  service:services(name, duration_minutes),
+  professional:professionals(full_name),
+  client:clients(full_name, phone, email)
+`
+
 export async function signInAdmin(email: string, password: string): Promise<void> {
   const { error } = await supabase.auth.signInWithPassword({ email, password })
 
@@ -98,26 +117,7 @@ export async function fetchAdminProfile(userId: string): Promise<AdminProfile | 
 export async function fetchAdminAppointments(): Promise<AdminAppointment[]> {
   const { data, error } = await supabase
     .from('appointments')
-    .select(
-      `
-        id,
-        confirmation_code,
-        status,
-        starts_at,
-        ends_at,
-        source,
-        notes,
-        admin_notes,
-        cancellation_reason,
-        confirmed_at,
-        completed_at,
-        cancelled_at,
-        created_at,
-        service:services(name, duration_minutes),
-        professional:professionals(full_name),
-        client:clients(full_name, phone, email)
-      `,
-    )
+    .select(adminAppointmentSelect)
     .order('starts_at', { ascending: false })
     .limit(300)
 
@@ -126,6 +126,22 @@ export async function fetchAdminAppointments(): Promise<AdminAppointment[]> {
   }
 
   return (data ?? []) as unknown as AdminAppointment[]
+}
+
+export async function fetchAdminAppointment(
+  appointmentId: string,
+): Promise<AdminAppointment | null> {
+  const { data, error } = await supabase
+    .from('appointments')
+    .select(adminAppointmentSelect)
+    .eq('id', appointmentId)
+    .maybeSingle()
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return (data ?? null) as unknown as AdminAppointment | null
 }
 
 export async function updateAppointmentStatus(
