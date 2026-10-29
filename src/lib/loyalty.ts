@@ -105,6 +105,23 @@ export async function createLoyaltyCampaign(input: {
   if (error) throw error
 }
 
+export async function updateLoyaltyCampaign(id: string, input: {
+  name: string
+  rewardDescription: string
+  stampGoal: number
+  startsOn: string | null
+  endsOn: string | null
+}): Promise<void> {
+  const { error } = await supabase.from('loyalty_campaigns').update({
+    name: input.name.trim(),
+    reward_description: input.rewardDescription.trim(),
+    stamp_goal: input.stampGoal,
+    starts_on: input.startsOn || null,
+    ends_on: input.endsOn || null,
+  }).eq('id', id).select('id').single()
+  if (error) throw error
+}
+
 export async function setLoyaltyCampaignActive(id: string, active: boolean): Promise<void> {
   const { error } = await supabase.from('loyalty_campaigns').update({ active }).eq('id', id)
   if (error) throw error

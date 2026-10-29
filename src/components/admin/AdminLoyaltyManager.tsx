@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { FormEvent, ReactNode } from 'react'
-import { FaBan, FaCheck, FaGift, FaLink, FaPlus, FaStamp } from 'react-icons/fa'
+import { FaBan, FaCheck, FaGift, FaLink, FaPen, FaPlus, FaStamp } from 'react-icons/fa'
 import { siteConfig } from '../../data/site'
 import { todayInTimeZone } from '../../lib/dates'
 import {
@@ -14,6 +14,7 @@ import {
   redeemLoyaltyReward,
   revokeLoyaltyCard,
   setLoyaltyCampaignActive,
+  updateLoyaltyCampaign,
 } from '../../lib/loyalty'
 import type {
   LoyaltyAppointment,
@@ -40,6 +41,7 @@ export default function AdminLoyaltyManager() {
   const [message, setMessage] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
   const [showCampaignForm, setShowCampaignForm] = useState(false)
+  const [editingCampaignId, setEditingCampaignId] = useState<string | null>(null)
   const [campaignName, setCampaignName] = useState('')
   const [rewardDescription, setRewardDescription] = useState('')
   const [stampGoal, setStampGoal] = useState(8)
@@ -114,26 +116,52 @@ export default function AdminLoyaltyManager() {
   const readyRewards = activeCards.filter((card) => card.stamps >= (campaignById.get(card.campaign_id)?.stamp_goal ?? Infinity)).length
   const redeemedCount = overview.transactions.filter((transaction) => transaction.event_type === 'redeemed').length
 
-  async function handleCreateCampaign(event: FormEvent<HTMLFormElement>) {
+  function beginCampaignEdit(campaign: LoyaltyCampaign) {
+    setEditingCampaignId(campaign.id)
+    setCampaignName(campaign.name)
+    setRewardDescription(campaign.reward_description)
+    setStampGoal(campaign.stamp_goal)
+    setStartsOn(campaign.starts_on ?? '')
+    setEndsOn(campaign.ends_on ?? '')
+    setShowCampaignForm(true)
+    setActionError(null)
+    setMessage(null)
+  }
+
+  function resetCampaignForm() {
+    setEditingCampaignId(null)
+    setCampaignName('')
+    setRewardDescription('')
+    setStampGoal(8)
+    setStartsOn('')
+    setEndsOn('')
+    setShowCampaignForm(false)
+  }
+
+  async function handleSaveCampaign(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    if (startsOn && endsOn && endsOn < startsOn) {
+      setActionError('La fecha de finalización debe ser igual o posterior a la fecha de inicio.')
+      return
+    }
     setSaving(true)
     setActionError(null)
     setMessage(null)
     try {
-      await createLoyaltyCampaign({
+      const campaignValues = {
         name: campaignName,
         rewardDescription,
         stampGoal,
         startsOn: startsOn || null,
         endsOn: endsOn || null,
-      })
-      setCampaignName('')
-      setRewardDescription('')
-      setStampGoal(8)
-      setStartsOn('')
-      setEndsOn('')
-      setShowCampaignForm(false)
-      setMessage('Campaña creada.')
+      }
+      if (editingCampaignId) {
+        await updateLoyaltyCampaign(editingCampaignId, campaignValues)
+      } else {
+        await createLoyaltyCampaign(campaignValues)
+      }
+      setMessage(editingCampaignId ? 'Campaña actualizada.' : 'Campaña creada.')
+      resetCampaignForm()
       await loadOverview()
     } catch (error) {
       setActionError(mapLoyaltyError(error))
@@ -276,11 +304,14 @@ export default function AdminLoyaltyManager() {
         <button
           className="flex min-h-11 w-fit items-center justify-center gap-2 bg-primary px-4 py-2.5 font-label-caps text-label-caps uppercase text-on-primary transition-colors hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-50"
           disabled={saving}
-          onClick={() => setShowCampaignForm((value) => !value)}
+          onClick={() => {
+            if (editingCampaignId || showCampaignForm) resetCampaignForm()
+            else setShowCampaignForm(true)
+          }}
           type="button"
         >
           <FaPlus aria-hidden="true" />
-          {showCampaignForm ? 'Cerrar formulario' : 'Nueva campaña'}
+          {editingCampaignId ? 'Cancelar edición' : showCampaignForm ? 'Cerrar formulario' : 'Nueva campaña'}
         </button>
       </div>
 
@@ -295,8 +326,9 @@ export default function AdminLoyaltyManager() {
       {copyMessage && <p className="mt-space-sm font-body-sm text-body-sm text-on-surface-variant" role="status">{copyMessage}</p>}
 
       {showCampaignForm && (
-        <form className="mt-space-lg border border-surface-container bg-surface-container-lowest p-space-md sm:p-space-lg" onSubmit={(event) => void handleCreateCampaign(event)}>
-          <h2 className="font-title-lg text-title-lg uppercase text-primary">Crear campaña</h2>
+        <form className="mt-space-lg border border-surface-container bg-surface-container-lowest p-space-md sm:p-space-lg" onSubmit={(event) => void handleSaveCampaign(event)}>
+          <h2 className="font-title-lg text-title-lg uppercase text-primary">{editingCampaignId ? 'Editar campaña' : 'Crear campaña'}</h2>
+          {editingCampaignId && <p className="mt-2 font-body-sm text-body-sm text-on-surface-variant">Los cambios de premio, sellos y vigencia también se aplican a las tarjetas de esta campaña.</p>}
           <div className="mt-space-md grid grid-cols-1 gap-space-md md:grid-cols-2">
             <Field label="Nombre de la campaña">
               <input className={inputClass} maxLength={80} minLength={2} onChange={(event) => setCampaignName(event.target.value)} required value={campaignName} />
@@ -316,7 +348,7 @@ export default function AdminLoyaltyManager() {
           </div>
           <p className="mt-space-sm font-body-sm text-body-sm text-on-surface-variant">La clienta podrá acumular un sello por cada cita completada. Cada cita solo puede dar un sello.</p>
           <button className="mt-space-md min-h-11 bg-secondary px-5 py-2.5 font-label-caps text-label-caps uppercase text-on-secondary transition-colors hover:bg-tertiary-container disabled:opacity-50" disabled={saving} type="submit">
-            {saving ? 'Guardando…' : 'Guardar campaña'}
+            {saving ? 'Guardando…' : editingCampaignId ? 'Guardar cambios' : 'Guardar campaña'}
           </button>
         </form>
       )}
@@ -337,9 +369,14 @@ export default function AdminLoyaltyManager() {
                   <p className="mt-1 font-body-sm text-body-sm text-on-surface-variant">{campaign.stamp_goal} sellos · {campaign.reward_description}</p>
                   <p className="mt-1 font-body-sm text-body-sm text-on-surface-variant">{campaignCardsCount(overview.cards, campaign.id)} tarjetas emitidas</p>
                 </div>
-                <button className="min-h-11 shrink-0 border border-surface-container px-3 py-2 font-label-caps text-[10px] uppercase text-primary transition-colors hover:border-secondary disabled:opacity-50" disabled={saving} onClick={() => void handleCampaignStatus(campaign)} type="button">
-                  {campaign.active ? 'Pausar' : 'Activar'}
-                </button>
+                <div className="flex shrink-0 flex-wrap gap-2">
+                  <button className="flex min-h-11 items-center gap-2 border border-surface-container px-3 py-2 font-label-caps text-[10px] uppercase text-primary transition-colors hover:border-secondary disabled:opacity-50" disabled={saving} onClick={() => beginCampaignEdit(campaign)} type="button">
+                    <FaPen aria-hidden="true" /> Editar
+                  </button>
+                  <button className="min-h-11 border border-surface-container px-3 py-2 font-label-caps text-[10px] uppercase text-primary transition-colors hover:border-secondary disabled:opacity-50" disabled={saving} onClick={() => void handleCampaignStatus(campaign)} type="button">
+                    {campaign.active ? 'Pausar' : 'Activar'}
+                  </button>
+                </div>
               </article>
             ))}
           </div>
