@@ -12,9 +12,17 @@ import type { AdminSection } from '../components/admin/AdminTabs'
 import { siteConfig } from '../data/site'
 import { fetchAdminProfile, mapAccessError, signOutAdmin } from '../lib/admin'
 import type { AdminProfile } from '../lib/admin'
+import { usePageMeta } from '../lib/seo'
 import { supabase } from '../lib/supabase'
 
 export default function AdminPage() {
+  usePageMeta({
+    title: `Panel administrativo · ${siteConfig.brand}`,
+    description: 'Panel administrativo de Perfect Woman T.',
+    path: '/gestion-perfectwoman',
+    noIndex: true,
+  })
+
   const [session, setSession] = useState<Session | null>(null)
   const [checkingSession, setCheckingSession] = useState(true)
   const [profile, setProfile] = useState<AdminProfile | null>(null)
@@ -26,19 +34,6 @@ export default function AdminPage() {
 
   const userId = session?.user.id
   const userEmail = session?.user.email ?? null
-
-  useEffect(() => {
-    document.title = `Panel administrativo · ${siteConfig.brand}`
-
-    const robots = document.createElement('meta')
-    robots.content = 'noindex, nofollow'
-    robots.name = 'robots'
-    document.head.appendChild(robots)
-
-    return () => {
-      robots.remove()
-    }
-  }, [])
 
   useEffect(() => {
     let active = true

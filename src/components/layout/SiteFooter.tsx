@@ -58,7 +58,7 @@ export default function SiteFooter() {
           </div>
         </div>
         <div className="mt-space-2xl flex flex-col items-start justify-between gap-space-md pt-space-lg text-on-surface-variant md:flex-row md:items-center">
-          <p className="max-w-xl font-body-sm text-body-sm">Precios y duraciones por confirmar. Consulta la información vigente por WhatsApp o Instagram.</p>
+          <p className="max-w-xl font-body-sm text-body-sm">Precios y duraciones vigentes al momento de la reserva. Consulta cualquier cambio por WhatsApp o Instagram.</p>
           <p className="font-body-sm text-body-sm">
             © 2026 {siteConfig.brand}. Todos los derechos reservados · {siteConfig.location} ·{' '}
             <Link className="underline decoration-secondary/40 underline-offset-2 hover:text-primary" to={siteConfig.privacyPath}>

@@ -3,7 +3,6 @@ import ServiceCard from '../components/ui/ServiceCard'
 import { services } from '../data/services'
 import type { Service } from '../data/services'
 import { serviceBookingHref } from '../data/site'
-import { fetchPublicServices } from '../lib/booking'
 import type { PublicService } from '../lib/booking'
 
 function toShowcaseService(row: PublicService): Service {
@@ -31,7 +30,8 @@ export default function FeaturedServices() {
   useEffect(() => {
     let active = true
 
-    fetchPublicServices()
+    import('../lib/booking')
+      .then(({ fetchPublicServices }) => fetchPublicServices())
       .then((rows) => {
         if (active) {
           setItems(rows.map(toShowcaseService))

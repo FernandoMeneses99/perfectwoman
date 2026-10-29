@@ -25,7 +25,7 @@ export default function ServiceCard({
     <article className="group flex flex-col bg-surface-container-lowest shadow-sm transition-shadow hover:shadow-md">
       <div className="relative aspect-[4/3] overflow-hidden bg-surface-container-high">
         {image ? (
-          <img className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" src={image} alt={imageAlt} />
+          <img className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" src={image} alt={imageAlt} decoding="async" loading="lazy" />
         ) : (
           <div className="flex h-full items-end bg-surface-container p-space-lg">
             <span className="font-headline-sm text-headline-sm uppercase leading-none text-primary/40">{name}</span>

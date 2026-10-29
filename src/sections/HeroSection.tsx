@@ -38,7 +38,7 @@ export default function HeroSection() {
         <div className="relative mt-space-xl w-full min-w-0 lg:col-span-5 lg:mt-0">
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
             <div className="relative bg-surface-container-high overflow-hidden shadow-xl aspect-[4/5]">
-              <img className="w-full h-full object-cover" alt="Retrato editorial de mujer con cejas esculpidas y extensiones de pestañas" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiyEk9eF-JhghldRMvR0Mh0sbFU24ty78Kuc3Kzaz2JGnQXcMxyZxONy1uJsr2m6RZmv0-y477EtpOLL8rg2U4KuKqZyXsiJS8FLPI55xfVF8k7767MK4BkSbLMPdkQPsrBbUHjj8BUno4YjsSK_Os0lwwF7ySk2w7ewge7hIPHjZ7UvTRG6E_vsB0umLlstn0I5nEsB4gCt2i4KdbVNPurvRUZeBSfhNpZp8fZt80" />
+              <img className="w-full h-full object-cover" alt="Retrato editorial de mujer con cejas esculpidas y extensiones de pestañas" src={siteConfig.seoImage} decoding="async" fetchPriority="high" />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent"></div>
               <div className="absolute bottom-4 left-4 right-4 bg-surface/90 backdrop-blur-md p-space-md flex items-center justify-between shadow-sm">
                 <div>

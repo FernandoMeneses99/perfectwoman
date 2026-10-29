@@ -7,7 +7,7 @@ export default function SpecialistSection() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-center">
         <div className="lg:col-span-5 relative">
           <div className="relative bg-surface-container overflow-hidden shadow-xl aspect-[3/4]">
-            <img className="w-full h-full object-cover" alt="Retrato de la master artist en estudio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDRoGVbG16zJEU9wDdZK7rtC165VVuHs0DHFf5HdZw8uRoVe8VVqa8CSblZDeiZt-09lDpVF9AFnLFK-VKQx5OOuX6FC0l93_MBbR6MDv3hY-XF45tfqhqQwfGtdI0d8yhXLSpzHyqfa_0UrLmtbhZeswuA-s6nnF80oYd7EB2u5yzjuj6RKJscNKwQIneyxTggGpEsrS_XuCFqiGzocEvUk3XJ1VtRnzh7766r6Ah" />
+            <img className="w-full h-full object-cover" alt="Retrato de la master artist en estudio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDRoGVbG16zJEU9wDdZK7rtC165VVuHs0DHFf5HdZw8uRoVe8VVqa8CSblZDeiZt-09lDpVF9AFnLFK-VKQx5OOuX6FC0l93_MBbR6MDv3hY-XF45tfqhqQwfGtdI0d8yhXLSpzHyqfa_0UrLmtbhZeswuA-s6nnF80oYd7EB2u5yzjuj6RKJscNKwQIneyxTggGpEsrS_XuCFqiGzocEvUk3XJ1VtRnzh7766r6Ah" decoding="async" loading="lazy" />
             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-secondary-container/30 rounded-full blur-xl pointer-events-none"></div>
           </div>
           <div className="mt-space-md p-space-md bg-surface-container-lowest shadow-sm flex items-center justify-between">

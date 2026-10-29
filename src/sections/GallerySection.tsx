@@ -13,7 +13,7 @@
         </div>
         <div className="mt-space-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-gutter items-stretch">
           <div className="lg:col-span-7 relative group overflow-hidden bg-surface-container-high shadow-sm aspect-[16/10] sm:aspect-auto sm:min-h-[380px]">
-            <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Pestañas clásicas 1:1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqvZ70npqn_ctTv3LdtGpLGDGIATiPuIGToWV4Y9xgDmuLF8zK4-jMdBaELF_VPKI0Avx0f5lXVTNV4sORIo4GmtvQ3oXhGG46OrCauI03esOblZqJu4U2PsAGX_yqCElKtRkS6U00EA1sb0hKOVUNJJvSHR5OWiQtg0nEowDufvEhNMT2L0HQ3g4guDufdZHBRL2Q36B7Izp9WzqRL2dYamKdt5cCB0fQzQWkKlWe" />
+            <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" alt="Pestañas clásicas 1:1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqvZ70npqn_ctTv3LdtGpLGDGIATiPuIGToWV4Y9xgDmuLF8zK4-jMdBaELF_VPKI0Avx0f5lXVTNV4sORIo4GmtvQ3oXhGG46OrCauI03esOblZqJu4U2PsAGX_yqCElKtRkS6U00EA1sb0hKOVUNJJvSHR5OWiQtg0nEowDufvEhNMT2L0HQ3g4guDufdZHBRL2Q36B7Izp9WzqRL2dYamKdt5cCB0fQzQWkKlWe" />
             <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
             <div className="absolute bottom-4 left-4 right-4 p-space-sm flex items-end justify-between text-on-primary">
               <div>
@@ -24,7 +24,7 @@
             </div>
           </div>
           <div className="lg:col-span-5 relative group overflow-hidden bg-surface-container-high shadow-sm aspect-[4/3] sm:aspect-auto sm:min-h-[380px]">
-            <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Cejas con efecto sombra" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPqg75o4YBb8aJcM33tGKXPUirEZuHUeU-i-21xzxCHhKX8MY2RVP-jumoO0_5_B9kZnIjItU4f_3yN8KBrQyFwVZQgSVrjvOA28kvbgjWiDJcCYfPkn4nhYxU_A1B943WQ6GG74cwpN9zRGH7yrc9yrlCvMKb6GQLUjOLmg3m9qxO5JuAeQkKb5Z22k762_MGzo6iVhXoJnPzPQiy8QF2nLoi8HnIB9B349s_mpi3" />
+            <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" alt="Cejas con efecto sombra" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPqg75o4YBb8aJcM33tGKXPUirEZuHUeU-i-21xzxCHhKX8MY2RVP-jumoO0_5_B9kZnIjItU4f_3yN8KBrQyFwVZQgSVrjvOA28kvbgjWiDJcCYfPkn4nhYxU_A1B943WQ6GG74cwpN9zRGH7yrc9yrlCvMKb6GQLUjOLmg3m9qxO5JuAeQkKb5Z22k762_MGzo6iVhXoJnPzPQiy8QF2nLoi8HnIB9B349s_mpi3" />
             <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent opacity-80"></div>
             <div className="absolute bottom-4 left-4 right-4 p-space-sm flex items-end justify-between text-on-primary">
               <div>
@@ -35,7 +35,7 @@
             </div>
           </div>
           <div className="lg:col-span-4 relative group overflow-hidden bg-surface-container-high shadow-sm aspect-[4/3]">
-            <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Lash lifting natural" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAhscrOLscd3-IWFgI5ep6FQf_5aqPwH0ydllmiA1cM8WZGeuNj2AjBjvRlABtv8zsezV8ztZtCQJ960CD0keUex9tyu2qeC-U1d-XVfoeXBNyOuui08oTxSQooDaL205pa518F9LTcLRqW6L46-r6W2MnGpWfJmCrGHUUrhfhQnc_b8Jxplo0RdCEXtZCZyLa1bsv4iDEjoDBr5TCfkkkIAf1HOeeUOluFr24r5_z" />
+            <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" alt="Lash lifting natural" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAhscrOLscd3-IWFgI5ep6FQf_5aqPwH0ydllmiA1cM8WZGeuNj2AjBjvRlABtv8zsezV8ztZtCQJ960CD0keUex9tyu2qeC-U1d-XVfoeXBNyOuui08oTxSQooDaL205pa518F9LTcLRqW6L46-r6W2MnGpWfJmCrGHUUrhfhQnc_b8Jxplo0RdCEXtZCZyLa1bsv4iDEjoDBr5TCfkkkIAf1HOeeUOluFr24r5_z" />
             <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent opacity-80"></div>
             <div className="absolute bottom-4 left-4 right-4 p-space-sm flex items-end justify-between text-on-primary">
               <div>
@@ -46,7 +46,7 @@
             </div>
           </div>
           <div className="lg:col-span-4 relative group overflow-hidden bg-surface-container-high shadow-sm aspect-[4/3]">
-            <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Volumen ruso" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhfvZMWiYE6qYo9NNF5bs3ZkLGT1cYh_lUp-SoZff_NxCgLQgun5eLQ5EZdD2rHHgNV8dLdYBmrb0Bh4hj6ijWYV5Fa3vzvCiF6rwBICbXGdfxJ4UgPTyaYAskT63et-H5P4sOvFgsK2G7aA7UoA1CCWrhi0F4LaAvtB5xKmRMZA59SHL8zjOTZhqj3z-2ZoIPZdofLSosrjFDIFNokcGjEXXfEhr2o3fhzMb9Tgrq" />
+            <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" alt="Volumen ruso" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhfvZMWiYE6qYo9NNF5bs3ZkLGT1cYh_lUp-SoZff_NxCgLQgun5eLQ5EZdD2rHHgNV8dLdYBmrb0Bh4hj6ijWYV5Fa3vzvCiF6rwBICbXGdfxJ4UgPTyaYAskT63et-H5P4sOvFgsK2G7aA7UoA1CCWrhi0F4LaAvtB5xKmRMZA59SHL8zjOTZhqj3z-2ZoIPZdofLSosrjFDIFNokcGjEXXfEhr2o3fhzMb9Tgrq" />
             <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent opacity-80"></div>
             <div className="absolute bottom-4 left-4 right-4 p-space-sm flex items-end justify-between text-on-primary">
               <div>
@@ -57,7 +57,7 @@
             </div>
           </div>
           <div className="lg:col-span-4 relative group overflow-hidden bg-surface-container-high shadow-sm aspect-[4/3]">
-            <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Ambiente del salón" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxddXlw1s8_F49xZTsooyQVcyEIG34pSB4UZYaMquU2rUKk5Bi56uBhR9TBsDpv_Pts9LcLE0hQRojDyQlPOd4sbl2_pjzD1JyfTaZiyIJm6ZU9DahxoYnw8sYAvT2u37XNQTFX5goU8HycVBZVaQEgj9zYtyMSpzJY8dA6Z2C-n4vzhBItWei2eWwugnXLF1_HaLU8_bgDkVCczX3qHQlCvABSiIbQW5PS13ZKiCX" />
+            <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" alt="Ambiente del salón" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxddXlw1s8_F49xZTsooyQVcyEIG34pSB4UZYaMquU2rUKk5Bi56uBhR9TBsDpv_Pts9LcLE0hQRojDyQlPOd4sbl2_pjzD1JyfTaZiyIJm6ZU9DahxoYnw8sYAvT2u37XNQTFX5goU8HycVBZVaQEgj9zYtyMSpzJY8dA6Z2C-n4vzhBItWei2eWwugnXLF1_HaLU8_bgDkVCczX3qHQlCvABSiIbQW5PS13ZKiCX" />
             <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent opacity-80"></div>
             <div className="absolute bottom-4 left-4 right-4 p-space-sm flex itemsield justify-between text-on-primary">
               <div>

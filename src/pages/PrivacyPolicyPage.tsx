@@ -5,8 +5,15 @@ import {
   privacyPolicyUpdated,
   privacyPolicyVersion,
 } from '../data/privacy'
+import { usePageMeta } from '../lib/seo'
 
 export default function PrivacyPolicyPage() {
+  usePageMeta({
+    title: 'Política de privacidad | Perfect Woman T',
+    description: 'Política de privacidad y tratamiento de datos personales de Perfect Woman T.',
+    path: '/politica-privacidad',
+  })
+
   return (
     <PageShell>
       <article className="mx-auto w-full max-w-4xl px-margin py-space-3xl md:px-margin-tablet lg:px-margin-desktop">
