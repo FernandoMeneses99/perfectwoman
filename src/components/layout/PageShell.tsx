@@ -27,6 +27,9 @@ export default function PageShell({ children }: PageShellProps) {
             >
               Inicio
             </Link>
+            <Link className="hidden font-label-caps text-label-caps uppercase text-on-surface-variant transition-colors hover:text-primary sm:inline" to="/club-fidelidad">
+              Fidelidad
+            </Link>
             <a
               className="flex items-center gap-2 bg-primary px-4 py-2.5 font-label-caps text-label-caps uppercase text-on-primary transition-colors hover:bg-secondary"
               href={siteConfig.whatsapp}
