@@ -8,6 +8,7 @@ const BookingPage = lazy(() => import('./pages/BookingPage'))
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'))
 const PublicLoyaltyCardPage = lazy(() => import('./pages/PublicLoyaltyCardPage'))
 const LoyaltyClubPage = lazy(() => import('./pages/LoyaltyClubPage'))
+const ReviewPage = lazy(() => import('./pages/ReviewPage'))
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -47,6 +48,7 @@ function App() {
           <Route element={<PrivacyPolicyPage />} path="/politica-privacidad" />
           <Route element={<PublicLoyaltyCardPage />} path="/fidelidad/:token" />
           <Route element={<LoyaltyClubPage />} path="/club-fidelidad" />
+          <Route element={<ReviewPage />} path="/opinion/:token" />
           <Route element={<AdminPage />} path="/gestion-perfectwoman" />
           <Route element={<Navigate replace to="/" />} path="*" />
         </Routes>

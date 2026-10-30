@@ -244,6 +244,16 @@ export function mapAdminError(error: unknown): string {
       return 'Tu usuario no tiene permisos de administración.'
     case 'APPOINTMENT_NOT_FOUND':
       return 'La cita ya no existe. Actualiza la lista.'
+    case 'APPOINTMENT_NOT_COMPLETED':
+      return 'Solo puedes pedir opinión de una cita completada.'
+    case 'REVIEW_ALREADY_SUBMITTED':
+      return 'La clienta ya envió su opinión para esta cita.'
+    case 'REVIEW_NOT_FOUND':
+      return 'La opinión ya no existe. Actualiza la lista.'
+    case 'INVALID_REVIEW_STATUS':
+      return 'La opinión ya no admite ese cambio de estado.'
+    case 'INVALID_REVIEW_NOTE':
+      return 'La nota interna es demasiado larga.'
     case 'BLOCK_NOT_FOUND':
       return 'El bloqueo ya no existe. Actualiza la lista.'
     case 'INVALID_STATUS':

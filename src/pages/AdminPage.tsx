@@ -8,6 +8,7 @@ import {
   AdminNotificationsProvider,
 } from '../components/admin/AdminNotifications'
 import AdminProfessionalsManager from '../components/admin/AdminProfessionalsManager'
+import AdminReviewsManager from '../components/admin/AdminReviewsManager'
 import AdminScheduleManager from '../components/admin/AdminScheduleManager'
 import AdminServicesManager from '../components/admin/AdminServicesManager'
 import AdminShell from '../components/admin/AdminShell'
@@ -224,6 +225,7 @@ export default function AdminPage() {
           {section === 'servicios' && <AdminServicesManager />}
           {section === 'equipo' && <AdminProfessionalsManager />}
           {section === 'fidelidad' && <AdminLoyaltyManager />}
+          {section === 'opiniones' && <AdminReviewsManager />}
           {section === 'admins' && <AdminUsersManager />}
         </div>
       </AdminShell>

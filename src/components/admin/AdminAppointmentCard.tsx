@@ -11,6 +11,8 @@ type AdminAppointmentCardProps = {
   onCancel: (appointment: AdminAppointment) => void
   onReschedule: (appointment: AdminAppointment) => void
   onNotes: (appointment: AdminAppointment) => void
+  onRequestReview?: (appointment: AdminAppointment) => void
+  requestingReview?: boolean
 }
 
 const statusLabels: Record<AppointmentStatus, string> = {
@@ -42,6 +44,8 @@ export default function AdminAppointmentCard({
   onCancel,
   onReschedule,
   onNotes,
+  onRequestReview,
+  requestingReview = false,
 }: AdminAppointmentCardProps) {
   const [expanded, setExpanded] = useState(false)
   const appointmentDate = dateInTimeZone(appointment.starts_at, siteConfig.timeZone)
@@ -165,7 +169,19 @@ export default function AdminAppointmentCard({
 
       <div className="flex flex-col gap-space-sm border-t border-surface-container px-space-md py-space-md sm:flex-row sm:items-center sm:justify-between">
         {isTerminal ? (
-          <p className="font-body-sm text-body-sm text-on-surface-variant">Esta cita ya está cerrada.</p>
+          <div className="flex w-full flex-col gap-space-sm sm:flex-row sm:items-center sm:justify-between">
+            <p className="font-body-sm text-body-sm text-on-surface-variant">Esta cita ya está cerrada.</p>
+            {appointment.status === 'completed' && onRequestReview && (
+              <button
+                className="w-fit border border-surface-container px-4 py-2 font-label-caps text-[10px] uppercase tracking-wider text-primary transition-colors hover:border-secondary disabled:cursor-not-allowed disabled:opacity-50"
+                disabled={requestingReview}
+                onClick={() => onRequestReview(appointment)}
+                type="button"
+              >
+                {requestingReview ? 'Generando...' : 'Pedir opinión'}
+              </button>
+            )}
+          </div>
         ) : (
           <div className="flex flex-wrap gap-space-sm">
             {appointment.status === 'pending' && (

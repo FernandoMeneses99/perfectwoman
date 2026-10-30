@@ -6,6 +6,7 @@ import {
   AdminNotesDialog,
   AdminRescheduleDialog,
 } from './AdminAppointmentDialogs'
+import AdminReviewDialog from './AdminReviewDialog'
 import { siteConfig } from '../../data/site'
 import { addDays, dateInTimeZone, formatDateLong, formatTime, todayInTimeZone } from '../../lib/dates'
 import {
@@ -17,6 +18,8 @@ import type {
   AdminAppointment,
   AppointmentStatusResult,
 } from '../../lib/admin'
+import { createAdminReviewInvitation } from '../../lib/reviews'
+import type { ReviewInvitationLink } from '../../lib/reviews'
 
 type Filter = 'week' | 'today' | 'pending' | 'all'
 
@@ -49,6 +52,11 @@ export default function AdminDashboard() {
   const [showCreate, setShowCreate] = useState(false)
   const [rescheduleTarget, setRescheduleTarget] = useState<AdminAppointment | null>(null)
   const [notesTarget, setNotesTarget] = useState<AdminAppointment | null>(null)
+  const [reviewOpen, setReviewOpen] = useState(false)
+  const [reviewLink, setReviewLink] = useState<ReviewInvitationLink | null>(null)
+  const [reviewLoading, setReviewLoading] = useState(false)
+  const [reviewError, setReviewError] = useState<string | null>(null)
+  const [reviewingId, setReviewingId] = useState<string | null>(null)
 
   const loadAppointments = useCallback(async () => {
     setLoading(true)
@@ -190,6 +198,23 @@ export default function AdminDashboard() {
     setCancelTarget(appointment)
     setCancelReason('')
     setCancelError(null)
+  }
+
+  async function openReviewInvitation(appointment: AdminAppointment) {
+    setReviewOpen(true)
+    setReviewLink(null)
+    setReviewError(null)
+    setReviewLoading(true)
+    setReviewingId(appointment.id)
+
+    try {
+      setReviewLink(await createAdminReviewInvitation(appointment.id))
+    } catch (error) {
+      setReviewError(mapAdminError(error))
+    } finally {
+      setReviewLoading(false)
+      setReviewingId(null)
+    }
   }
 
   async function handleCancel() {
@@ -350,8 +375,10 @@ export default function AdminDashboard() {
             appointment={appointment}
             onCancel={openCancel}
             onNotes={setNotesTarget}
+            onRequestReview={(target) => void openReviewInvitation(target)}
             onReschedule={setRescheduleTarget}
             onStatus={(target, status) => void changeStatus(target, status)}
+            requestingReview={reviewingId === appointment.id}
             updating={updatingId === appointment.id}
           />
         ))}
@@ -388,6 +415,19 @@ export default function AdminDashboard() {
             setNotesTarget(null)
             setActionMessage(message)
             void loadAppointments()
+          }}
+        />
+      )}
+
+      {reviewOpen && (
+        <AdminReviewDialog
+          error={reviewError}
+          link={reviewLink}
+          loading={reviewLoading}
+          onClose={() => {
+            setReviewOpen(false)
+            setReviewLink(null)
+            setReviewError(null)
           }}
         />
       )}
