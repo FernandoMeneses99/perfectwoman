@@ -1,6 +1,8 @@
 ﻿import { lazy, Suspense, useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
+import ErrorBoundary from './components/ErrorBoundary'
+import SiteContentProvider from './components/SiteContentProvider'
 import './App.css'
 
 const AdminPage = lazy(() => import('./pages/AdminPage'))
@@ -37,9 +39,11 @@ function RouteFallback() {
   )
 }
 
-function App() {
+function AppRoutes() {
+  const { pathname } = useLocation()
+
   return (
-    <BrowserRouter>
+    <ErrorBoundary resetKey={pathname}>
       <ScrollToTop />
       <Suspense fallback={<RouteFallback />}>
         <Routes>
@@ -53,7 +57,17 @@ function App() {
           <Route element={<Navigate replace to="/" />} path="*" />
         </Routes>
       </Suspense>
-    </BrowserRouter>
+    </ErrorBoundary>
+  )
+}
+
+function App() {
+  return (
+    <SiteContentProvider>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </SiteContentProvider>
   )
 }
 

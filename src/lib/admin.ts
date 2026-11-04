@@ -2,10 +2,13 @@ import { supabase } from './supabase'
 
 export type AppointmentStatus = 'pending' | 'confirmed' | 'completed' | 'cancelled' | 'no_show'
 
+export type AdminRole = 'owner' | 'admin'
+
 export type AdminProfile = {
   user_id: string
   email: string
   display_name: string | null
+  role: AdminRole
 }
 
 export type AdminAppointment = {
@@ -102,7 +105,7 @@ export async function signOutAdmin(): Promise<void> {
 export async function fetchAdminProfile(userId: string): Promise<AdminProfile | null> {
   const { data, error } = await supabase
     .from('admin_users')
-    .select('user_id, email, display_name')
+    .select('user_id, email, display_name, role')
     .eq('user_id', userId)
     .eq('active', true)
     .maybeSingle()
@@ -242,6 +245,12 @@ export function mapAdminError(error: unknown): string {
   switch (message) {
     case 'NOT_ADMIN':
       return 'Tu usuario no tiene permisos de administración.'
+    case 'NOT_OWNER':
+      return 'Solo la cuenta propietaria puede gestionar administradores.'
+    case 'INVALID_ROLE':
+      return 'Selecciona un rol válido.'
+    case 'LAST_OWNER_REQUIRED':
+      return 'Debe quedar al menos una cuenta propietaria activa.'
     case 'APPOINTMENT_NOT_FOUND':
       return 'La cita ya no existe. Actualiza la lista.'
     case 'APPOINTMENT_NOT_COMPLETED':

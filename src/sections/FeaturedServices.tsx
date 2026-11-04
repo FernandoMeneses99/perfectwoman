@@ -4,6 +4,7 @@ import { services } from '../data/services'
 import type { Service } from '../data/services'
 import { serviceBookingHref } from '../data/site'
 import type { PublicService } from '../lib/booking'
+import { useSiteContent } from '../lib/siteContentContext'
 
 function toShowcaseService(row: PublicService): Service {
   const fallback = services.find((service) => service.id === row.slug)
@@ -14,16 +15,17 @@ function toShowcaseService(row: PublicService): Service {
     name: row.name,
     description: row.description ?? fallback?.description ?? '',
     duration: `${row.duration_minutes} min`,
-    durationVerified: true,
+    durationVerified: row.duration_verified,
     priceCOP: row.price_cop,
     priceVerified: row.price_verified,
-    image: fallback?.image ?? '',
-    imageAlt: fallback?.imageAlt ?? row.name,
+    image: row.image_url ?? fallback?.image ?? '',
+    imageAlt: row.image_alt ?? fallback?.imageAlt ?? row.name,
     verified: row.price_verified,
   }
 }
 
 export default function FeaturedServices() {
+  const { content } = useSiteContent()
   const [items, setItems] = useState<Service[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -58,10 +60,10 @@ export default function FeaturedServices() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
           <div>
-            <span className="font-label-caps text-label-caps uppercase text-secondary tracking-widest">Portafolio Esencial</span>
-            <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary uppercase tracking-tight mt-1">Especialidades del Estudio</h2>
+            <span className="font-label-caps text-label-caps uppercase text-secondary tracking-widest">{content.services.eyebrow}</span>
+            <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary uppercase tracking-tight mt-1">{content.services.title}</h2>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mt-2">
-              Tratamientos diseñados para armonizar y potenciar la expresión natural de tu rostro con proporciones arquitectónicas.
+              {content.services.description}
             </p>
           </div>
         </div>
@@ -91,7 +93,9 @@ export default function FeaturedServices() {
                     name={service.name}
                     description={service.description}
                     duration={service.duration}
+                    durationVerified={service.durationVerified}
                     priceCOP={service.priceCOP}
+                    priceVerified={service.priceVerified}
                     image={service.image}
                     imageAlt={service.imageAlt}
                     bookingHref={serviceBookingHref(service.id)}

@@ -6,6 +6,7 @@ type PageMeta = {
   description: string
   path: string
   noIndex?: boolean
+  image?: string
 }
 
 function setMeta(attribute: 'name' | 'property', key: string, content: string) {
@@ -20,9 +21,10 @@ function setMeta(attribute: 'name' | 'property', key: string, content: string) {
   element.content = content
 }
 
-export function usePageMeta({ title, description, path, noIndex = false }: PageMeta) {
+export function usePageMeta({ title, description, path, noIndex = false, image }: PageMeta) {
   useEffect(() => {
     const url = `${siteConfig.url}${path}`
+    const socialImage = image ?? siteConfig.seoImage
 
     document.title = title
     setMeta('name', 'description', description)
@@ -30,10 +32,10 @@ export function usePageMeta({ title, description, path, noIndex = false }: PageM
     setMeta('property', 'og:title', title)
     setMeta('property', 'og:description', description)
     setMeta('property', 'og:url', url)
-    setMeta('property', 'og:image', siteConfig.seoImage)
+    setMeta('property', 'og:image', socialImage)
     setMeta('name', 'twitter:title', title)
     setMeta('name', 'twitter:description', description)
-    setMeta('name', 'twitter:image', siteConfig.seoImage)
+    setMeta('name', 'twitter:image', socialImage)
 
     let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')
 
@@ -44,5 +46,5 @@ export function usePageMeta({ title, description, path, noIndex = false }: PageM
     }
 
     canonical.href = url
-  }, [description, noIndex, path, title])
+  }, [description, image, noIndex, path, title])
 }

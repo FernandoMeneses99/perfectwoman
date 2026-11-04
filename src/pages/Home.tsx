@@ -9,11 +9,15 @@ import GallerySection from '../sections/GallerySection'
 import TestimonialsSection from '../sections/TestimonialsSection'
 import BookingCTA from '../sections/BookingCTA'
 import FloatingClientActions from '../components/FloatingClientActions'
+import { useSiteContent } from '../lib/siteContentContext'
 
 export default function Home() {
+  const { content } = useSiteContent()
+
   usePageMeta({
-    title: 'Perfect Woman T | Pestañas, cejas y belleza en Bogotá',
-    description: 'Estudio de mirada y belleza en Bogotá. Reserva pestañas, cejas, lifting, depilación y cuidado facial con precisión visagista.',
+    title: content.seo.title,
+    description: content.seo.description,
+    image: content.seo.image,
     path: '/',
   })
 

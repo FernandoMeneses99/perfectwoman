@@ -20,6 +20,7 @@ export type ReviewInvitationDetails = {
   appointment_starts_at: string
   client_first_name: string
   expires_at: string
+  privacy_policy_version: string
 }
 
 export type SubmitReviewInput = {
@@ -28,6 +29,7 @@ export type SubmitReviewInput = {
   rating: number
   message: string
   consent: boolean
+  policyVersion: string
 }
 
 export type SubmittedReview = {
@@ -175,6 +177,7 @@ export async function submitPublicReview(
     p_rating: input.rating,
     p_message: input.message,
     p_consent: input.consent,
+    p_policy_version: input.policyVersion,
   })
 
   if (error) {
@@ -289,6 +292,8 @@ export function mapReviewError(error: unknown): string {
       return 'Ya recibimos tu opinión. Gracias por compartir tu experiencia.'
     case 'CONSENT_REQUIRED':
       return 'Autoriza la publicación de tu nombre y opinión para continuar.'
+    case 'POLICY_VERSION_MISMATCH':
+      return 'La política de privacidad cambió. Recarga la página y vuelve a aceptarla.'
     case 'INVALID_REVIEW_NAME':
       return 'Escribe el nombre que quieres que aparezca publicado.'
     case 'INVALID_REVIEW_RATING':

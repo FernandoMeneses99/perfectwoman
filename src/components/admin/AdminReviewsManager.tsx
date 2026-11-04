@@ -58,6 +58,8 @@ export default function AdminReviewsManager() {
   const [actionMessage, setActionMessage] = useState<string | null>(null)
   const [updatingId, setUpdatingId] = useState<string | null>(null)
   const [filter, setFilter] = useState<Filter>('pending')
+  const [visibleCount, setVisibleCount] = useState(20)
+  const [loadedAt, setLoadedAt] = useState(0)
 
   async function loadReviews() {
     setLoading(true)
@@ -70,6 +72,7 @@ export default function AdminReviewsManager() {
       ])
       setReviews(reviewRows)
       setInvitations(invitationRows)
+      setLoadedAt(Date.now())
     } catch (error) {
       setLoadError(mapAdminError(error))
     } finally {
@@ -122,10 +125,12 @@ export default function AdminReviewsManager() {
   const activeInvitations = invitations.filter(
     (invitation) =>
       !invitation.used_at &&
-      new Date(invitation.expires_at).getTime() > Date.now(),
+      new Date(invitation.expires_at).getTime() > loadedAt,
   ).length
   const visibleReviews =
     filter === 'all' ? reviews : reviews.filter((review) => review.status === filter)
+  const shownReviews = visibleReviews.slice(0, visibleCount)
+  const remainingReviews = visibleReviews.length - shownReviews.length
 
   return (
     <div className="space-y-space-lg py-space-lg md:py-space-xl">
@@ -218,7 +223,10 @@ export default function AdminReviewsManager() {
                   : 'bg-surface-container text-on-surface-variant hover:text-primary'
               }`}
               key={item.id}
-              onClick={() => setFilter(item.id)}
+              onClick={() => {
+                setFilter(item.id)
+                setVisibleCount(20)
+              }}
               type="button"
             >
               {item.label} ({count})
@@ -264,7 +272,7 @@ export default function AdminReviewsManager() {
 
       {!loadError && visibleReviews.length > 0 && (
         <div className="space-y-space-md">
-          {visibleReviews.map((review) => (
+          {shownReviews.map((review) => (
             <article
               className="border border-surface-container bg-surface-container-lowest p-space-md shadow-sm"
               key={review.id}
@@ -346,6 +354,16 @@ export default function AdminReviewsManager() {
               </div>
             </article>
           ))}
+
+          {remainingReviews > 0 && (
+            <button
+              className="w-full border border-surface-container bg-surface-container-lowest px-4 py-3 font-label-caps text-label-caps uppercase text-primary transition-colors hover:border-secondary"
+              onClick={() => setVisibleCount((count) => count + 20)}
+              type="button"
+            >
+              Mostrar más opiniones ({remainingReviews} restantes)
+            </button>
+          )}
         </div>
       )}
 

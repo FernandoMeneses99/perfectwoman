@@ -16,7 +16,7 @@ export default function PageShell({ children }: PageShellProps) {
             <span className="font-headline-sm text-[14px] uppercase tracking-wider text-primary transition-colors group-hover:text-secondary">
               {siteConfig.brand}
             </span>
-            <span className="font-label-caps text-[7px] uppercase tracking-normal text-on-surface-variant">
+            <span className="font-label-caps text-[10px] uppercase tracking-normal text-on-surface-variant">
               {siteConfig.descriptor}
             </span>
           </Link>

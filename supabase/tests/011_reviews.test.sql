@@ -215,7 +215,8 @@ select is(
       'Clienta R.',
       5,
       'Una experiencia maravillosa y muy profesional.',
-      true
+      true,
+      (select privacy_policy_version from public.settings where id = true)
     )
   ),
   'pending',
@@ -240,7 +241,8 @@ select throws_ok(
     'Clienta R.',
     5,
     'Una experiencia maravillosa y muy profesional.',
-    true
+    true,
+    (select privacy_policy_version from public.settings where id = true)
   )$$,
   'PT409',
   'REVIEW_ALREADY_SUBMITTED',

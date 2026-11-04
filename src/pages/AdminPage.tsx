@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Session } from '@supabase/supabase-js'
+import AdminContentManager from '../components/admin/AdminContentManager'
 import AdminDashboard from '../components/admin/AdminDashboard'
 import AdminLogin from '../components/admin/AdminLogin'
 import {
@@ -217,7 +218,11 @@ export default function AdminPage() {
       >
         <div className="mx-auto w-full max-w-7xl px-margin pb-space-xl md:px-margin-tablet lg:px-margin-desktop">
           <div className="pt-space-md">
-            <AdminTabs active={section} onChange={setSection} />
+            <AdminTabs
+              active={section}
+              canManageAdmins={profile.role === 'owner'}
+              onChange={setSection}
+            />
           </div>
 
           {section === 'agenda' && <AdminDashboard />}
@@ -226,7 +231,8 @@ export default function AdminPage() {
           {section === 'equipo' && <AdminProfessionalsManager />}
           {section === 'fidelidad' && <AdminLoyaltyManager />}
           {section === 'opiniones' && <AdminReviewsManager />}
-          {section === 'admins' && <AdminUsersManager />}
+          {section === 'contenido' && <AdminContentManager />}
+          {section === 'admins' && profile.role === 'owner' && <AdminUsersManager />}
         </div>
       </AdminShell>
     </AdminNotificationsProvider>

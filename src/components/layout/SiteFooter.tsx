@@ -2,26 +2,29 @@ import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { navLinks } from '../../data/nav'
 import { siteConfig } from '../../data/site'
+import { useSiteContent } from '../../lib/siteContentContext'
 
 export default function SiteFooter() {
+  const { content } = useSiteContent()
+
   return (
     <footer className="w-full bg-surface-container-low text-on-surface">
       <div className="w-full px-margin py-space-3xl md:px-margin-tablet lg:px-margin-desktop">
         <div className="grid grid-cols-1 gap-gutter-desktop md:grid-cols-2 lg:grid-cols-12">
           <div className="flex flex-col items-start lg:col-span-4">
-            <span className="font-headline-md text-headline-md uppercase tracking-tight text-primary">{siteConfig.brand}</span>
-            <span className="mt-1 font-label-caps text-label-caps uppercase text-secondary">Estudio de mirada y belleza</span>
+            <span className="font-headline-md text-headline-md uppercase tracking-tight text-primary">{content.brand.name}</span>
+            <span className="mt-1 font-label-caps text-label-caps uppercase text-secondary">{content.footer.tagline}</span>
             <p className="mt-space-md max-w-sm font-body-md text-body-md text-on-surface-variant">
-              Servicios de pestañas, cejas, depilación, lifting y cuidado de la piel en Bogotá.
+              {content.footer.description}
             </p>
             <div className="mt-space-lg inline-flex items-center gap-space-xs border-l-2 border-brand-pink bg-surface-container px-3 py-1.5 text-primary">
-              <span className="font-label-caps text-label-caps uppercase">Bogotá, Colombia · Más de 5 años de experiencia</span>
+              <span className="font-label-caps text-label-caps uppercase">{content.brand.location} · Más de 5 años de experiencia</span>
             </div>
           </div>
           <div className="flex flex-col lg:col-span-3">
             <span className="font-label-caps text-label-caps uppercase tracking-widest text-primary">Servicios</span>
             <ul className="mt-space-md space-y-space-sm font-body-md text-body-md text-on-surface-variant">
-              {['Pestañas', 'Cejas', 'Depilación', 'Lifting', 'Cuidado de la piel'].map((service) => (
+              {content.footer.services.map((service) => (
                 <li key={service} className="transition-colors hover:text-primary"><a href="#servicios">{service}</a></li>
               ))}
             </ul>
@@ -37,13 +40,13 @@ export default function SiteFooter() {
           <div className="flex flex-col lg:col-span-3">
             <span className="font-label-caps text-label-caps uppercase tracking-widest text-primary">Contacto</span>
             <p className="mt-space-md font-body-md text-body-md text-on-surface-variant">
-              {siteConfig.location}<br />Reserva en línea o escríbenos por WhatsApp.
+              {content.brand.location}<br />Reserva en línea o escríbenos por WhatsApp.
             </p>
             <div className="mt-space-md flex items-center gap-space-sm">
-              <a aria-label="Instagram" className="flex h-9 w-9 items-center justify-center bg-surface-container text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-secondary" href={siteConfig.instagram} rel="noopener noreferrer" target="_blank">
+              <a aria-label="Instagram" className="flex h-11 w-11 items-center justify-center bg-surface-container text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-secondary" href={siteConfig.instagram} rel="noopener noreferrer" target="_blank">
                 <FaInstagram aria-hidden="true" className="text-[18px]" />
               </a>
-              <Link aria-label="Reservar cita" className="flex h-9 w-9 items-center justify-center bg-surface-container text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-secondary" to={siteConfig.bookingPath}>
+              <Link aria-label="Reservar cita" className="flex h-11 w-11 items-center justify-center bg-surface-container text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-secondary" to={siteConfig.bookingPath}>
                 <span className="material-symbols-outlined text-[18px]">calendar_month</span>
               </Link>
               {siteConfig.whatsapp ? (
@@ -58,9 +61,9 @@ export default function SiteFooter() {
           </div>
         </div>
         <div className="mt-space-2xl flex flex-col items-start justify-between gap-space-md pt-space-lg text-on-surface-variant md:flex-row md:items-center">
-          <p className="max-w-xl font-body-sm text-body-sm">Precios y duraciones vigentes al momento de la reserva. Consulta cualquier cambio por WhatsApp o Instagram.</p>
+          <p className="max-w-xl font-body-sm text-body-sm">{content.footer.note}</p>
           <p className="font-body-sm text-body-sm">
-            © 2026 {siteConfig.brand}. Todos los derechos reservados · {siteConfig.location} ·{' '}
+            © 2026 {content.brand.name}. Todos los derechos reservados · {content.brand.location} ·{' '}
             <Link className="underline decoration-secondary/40 underline-offset-2 hover:text-primary" to={siteConfig.privacyPath}>
               Política de privacidad
             </Link>

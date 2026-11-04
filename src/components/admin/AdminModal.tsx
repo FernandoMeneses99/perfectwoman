@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
 import { FaTimes } from 'react-icons/fa'
 
@@ -17,6 +17,36 @@ export default function AdminModal({
   busy = false,
   onClose,
 }: AdminModalProps) {
+  const dialogRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const previousFocus =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null
+    const dialog = dialogRef.current
+
+    if (!dialog) {
+      return
+    }
+
+    const focusable = dialog.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    )
+
+    if (focusable.length > 0) {
+      focusable[0].focus()
+    } else {
+      dialog.focus()
+    }
+
+    return () => {
+      if (previousFocus?.isConnected) {
+        previousFocus.focus()
+      }
+    }
+  }, [])
+
   useEffect(() => {
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
@@ -24,6 +54,40 @@ export default function AdminModal({
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape' && !busy) {
         onClose()
+        return
+      }
+
+      if (event.key !== 'Tab') {
+        return
+      }
+
+      const dialog = dialogRef.current
+
+      if (!dialog) {
+        return
+      }
+
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      )
+
+      if (focusable.length === 0) {
+        event.preventDefault()
+        dialog.focus()
+        return
+      }
+
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
       }
     }
 
@@ -48,8 +112,10 @@ export default function AdminModal({
       <div
         aria-labelledby="admin-modal-title"
         aria-modal="true"
-        className="max-h-[90vh] w-full max-w-2xl overflow-y-auto border border-surface-container bg-surface-container-lowest p-space-lg shadow-xl sm:p-space-xl"
+        className="max-h-[90vh] w-full max-w-2xl overflow-y-auto border border-surface-container bg-surface-container-lowest p-space-lg shadow-xl outline-none sm:p-space-xl"
+        ref={dialogRef}
         role="dialog"
+        tabIndex={-1}
       >
         <div className="flex items-start justify-between gap-space-md">
           <div>
@@ -67,7 +133,7 @@ export default function AdminModal({
           </div>
           <button
             aria-label="Cerrar"
-            className="flex h-9 w-9 shrink-0 items-center justify-center border border-surface-container text-on-surface-variant transition-colors hover:border-secondary hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-11 w-11 shrink-0 items-center justify-center border border-surface-container text-on-surface-variant transition-colors hover:border-secondary hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
             disabled={busy}
             onClick={onClose}
             type="button"

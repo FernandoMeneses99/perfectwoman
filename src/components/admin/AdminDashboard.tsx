@@ -41,6 +41,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true)
   const [loadError, setLoadError] = useState<string | null>(null)
   const [filter, setFilter] = useState<Filter>('week')
+  const [visibleCount, setVisibleCount] = useState(20)
   const [search, setSearch] = useState('')
   const [actionError, setActionError] = useState<string | null>(null)
   const [actionMessage, setActionMessage] = useState<string | null>(null)
@@ -149,6 +150,10 @@ export default function AdminDashboard() {
         ? right.starts_at.localeCompare(left.starts_at)
         : left.starts_at.localeCompare(right.starts_at),
     )
+
+  const shownAppointments = visibleAppointments.slice(0, visibleCount)
+  const remainingAppointments =
+    visibleAppointments.length - shownAppointments.length
 
   const pendingCount = appointments.filter((appointment) => appointment.status === 'pending').length
   const confirmedCount = appointments.filter((appointment) => appointment.status === 'confirmed').length
@@ -304,7 +309,10 @@ export default function AdminDashboard() {
                   ? 'bg-primary text-on-primary'
                   : 'bg-surface-container text-on-surface-variant hover:text-primary'
               }`}
-              onClick={() => setFilter(item.id)}
+              onClick={() => {
+                setFilter(item.id)
+                setVisibleCount(20)
+              }}
               type="button"
             >
               {item.label}
@@ -316,7 +324,10 @@ export default function AdminDashboard() {
           Buscar
           <input
             className="border border-surface-container bg-surface-container-lowest px-3 py-2 font-body-md text-body-md text-primary outline-none transition-colors focus:border-secondary"
-            onChange={(event) => setSearch(event.target.value)}
+            onChange={(event) => {
+              setSearch(event.target.value)
+              setVisibleCount(20)
+            }}
             placeholder="Nombre, teléfono o código"
             type="search"
             value={search}
@@ -369,7 +380,7 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {visibleAppointments.map((appointment) => (
+        {shownAppointments.map((appointment) => (
           <AdminAppointmentCard
             key={appointment.id}
             appointment={appointment}
@@ -382,6 +393,16 @@ export default function AdminDashboard() {
             updating={updatingId === appointment.id}
           />
         ))}
+
+        {remainingAppointments > 0 && (
+          <button
+            className="w-full border border-surface-container bg-surface-container-lowest px-4 py-3 font-label-caps text-label-caps uppercase text-primary transition-colors hover:border-secondary"
+            onClick={() => setVisibleCount((count) => count + 20)}
+            type="button"
+          >
+            Mostrar más citas ({remainingAppointments} restantes)
+          </button>
+        )}
       </div>
 
       {showCreate && (

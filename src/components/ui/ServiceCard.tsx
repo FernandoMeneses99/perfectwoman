@@ -5,7 +5,9 @@ type ServiceCardProps = {
   name: string
   description: string
   duration: string
+  durationVerified: boolean
   priceCOP: number | null
+  priceVerified: boolean
   image?: string
   imageAlt: string
   bookingHref?: string
@@ -16,7 +18,9 @@ export default function ServiceCard({
   name,
   description,
   duration,
+  durationVerified,
   priceCOP,
+  priceVerified,
   image,
   imageAlt,
   bookingHref = '/reservas',
@@ -32,7 +36,7 @@ export default function ServiceCard({
           </div>
         )}
         <span className="absolute left-3 top-3 bg-primary px-2.5 py-1 font-label-caps text-[10px] tracking-wider text-on-primary">
-          {duration}
+          {durationVerified ? duration : `${duration} · por confirmar`}
         </span>
       </div>
       <div className="flex flex-1 flex-col p-space-lg">
@@ -42,7 +46,7 @@ export default function ServiceCard({
         <div className="mt-space-lg flex items-center justify-between bg-surface-container px-3 py-2">
           <span className="font-body-sm text-body-sm text-on-surface-variant">Precio</span>
           <span className="font-body-sm text-body-sm font-semibold text-primary">
-            {priceCOP !== null ? 'COP ' + priceCOP.toLocaleString('es-CO') : 'Precio por confirmar'}
+            {priceCOP !== null && priceVerified ? 'COP ' + priceCOP.toLocaleString('es-CO') : 'Precio por confirmar'}
           </span>
         </div>
         <Link className="mt-space-md w-full bg-primary py-2.5 text-center font-label-caps text-label-caps uppercase tracking-wider text-on-primary transition-colors hover:bg-secondary" to={bookingHref}>

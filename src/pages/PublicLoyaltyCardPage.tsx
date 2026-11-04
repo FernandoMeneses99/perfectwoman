@@ -71,7 +71,7 @@ export default function PublicLoyaltyCardPage() {
 
   return (
     <PageShell>
-      <main className="mx-auto flex min-h-[72vh] w-full max-w-3xl flex-col justify-center px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop" aria-labelledby="card-page-title">
+      <div className="mx-auto flex min-h-[72vh] w-full max-w-3xl flex-col justify-center px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop" aria-labelledby="card-page-title">
         <div className="mb-space-md text-center">
           <span className="font-label-caps text-[10px] uppercase tracking-widest text-secondary">Perfect Woman T</span>
           <h1 id="card-page-title" className="mt-space-sm font-headline-lg text-headline-lg-mobile uppercase leading-tight text-primary md:text-headline-lg">Tarjeta de fidelidad</h1>
@@ -131,7 +131,7 @@ export default function PublicLoyaltyCardPage() {
             <a className="mt-space-md inline-flex min-h-11 items-center justify-center bg-primary px-5 py-2.5 font-label-caps text-label-caps uppercase text-on-primary transition-colors hover:bg-secondary" href={siteConfig.whatsapp} rel="noopener noreferrer" target="_blank">Escribir por WhatsApp</a>
           </div>
         )}
-      </main>
+      </div>
     </PageShell>
   )
 }

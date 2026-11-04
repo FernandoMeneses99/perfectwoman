@@ -6,8 +6,10 @@ import {
   fetchPublicReviews,
 } from '../lib/reviews'
 import type { PublicReview, PublicReviewSummary } from '../lib/reviews'
+import { useSiteContent } from '../lib/siteContentContext'
 
 export default function TestimonialsSection() {
+  const { content } = useSiteContent()
   const [reviews, setReviews] = useState<PublicReview[]>([])
   const [summary, setSummary] = useState<PublicReviewSummary | null>(null)
   const [loading, setLoading] = useState(true)
@@ -49,13 +51,13 @@ export default function TestimonialsSection() {
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-2xl text-center">
           <span className="font-label-caps text-label-caps uppercase tracking-widest text-secondary">
-            Opiniones
+            {content.testimonials.eyebrow}
           </span>
           <h2 className="mt-1 font-headline-lg text-headline-lg-mobile uppercase tracking-tight text-primary md:text-headline-lg">
-            Experiencias de clientas
+            {content.testimonials.title}
           </h2>
           <p className="mt-2 font-body-lg text-body-lg text-on-surface-variant">
-            Las opiniones se comparten con autorización de sus autoras.
+            {content.testimonials.description}
           </p>
         </div>
 
@@ -76,7 +78,7 @@ export default function TestimonialsSection() {
         {!loading && !hasReviews && (
           <div className="mt-space-2xl border-y border-outline-variant/50 py-space-xl text-center">
             <p className="font-editorial text-3xl italic text-primary sm:text-4xl">
-              Espacio reservado para opiniones autorizadas
+              {content.testimonials.emptyText}
             </p>
           </div>
         )}

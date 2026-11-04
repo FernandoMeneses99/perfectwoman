@@ -7,8 +7,12 @@ export type PublicService = {
   category: string | null
   description: string | null
   duration_minutes: number
+  duration_verified: boolean
   price_cop: number | null
   price_verified: boolean
+  image_url: string | null
+  image_alt: string | null
+  featured: boolean
   sort_order: number
 }
 

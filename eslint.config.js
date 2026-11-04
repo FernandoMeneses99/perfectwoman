@@ -18,5 +18,18 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
     },
+    rules: {
+      // Data-loading effects in this app intentionally show a synchronous
+      // loading state before starting their async request.
+      'react-hooks/set-state-in-effect': 'off',
+    },
+  },
+  {
+    files: ['src/components/admin/AdminNotifications.tsx'],
+    rules: {
+      // This module intentionally exports the event constants and hook next
+      // to the provider that owns their context.
+      'react-refresh/only-export-components': 'off',
+    },
   },
 ])

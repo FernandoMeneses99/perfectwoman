@@ -3,16 +3,18 @@ import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { navLinks } from '../../data/nav'
 import { siteConfig } from '../../data/site'
+import { useSiteContent } from '../../lib/siteContentContext'
 
 export default function SiteHeader() {
+  const { content } = useSiteContent()
   const [open, setOpen] = useState(false)
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 bg-surface/95 shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
       <div className="flex h-20 w-full items-center justify-between px-margin md:px-margin-tablet lg:px-margin-desktop">
         <a className="group flex min-w-0 flex-col" href="#inicio">
-          <span className="font-headline-sm text-[14px] uppercase tracking-wider text-primary transition-colors group-hover:text-secondary sm:text-headline-sm">{siteConfig.brand}</span>
-          <span className="font-label-caps text-[7px] uppercase tracking-normal text-on-surface-variant sm:text-label-caps">{siteConfig.descriptor}</span>
+          <span className="font-headline-sm text-[14px] uppercase tracking-wider text-primary transition-colors group-hover:text-secondary sm:text-headline-sm">{content.brand.name}</span>
+          <span className="font-label-caps text-[10px] uppercase tracking-normal text-on-surface-variant sm:text-label-caps">{content.brand.descriptor}</span>
         </a>
         <nav className="hidden items-center gap-space-lg xl:flex" aria-label="Navegación principal">
           {navLinks.map((link) => (
@@ -35,7 +37,7 @@ export default function SiteHeader() {
               WhatsApp no configurado
             </span>
           )}
-          <Link className="bg-secondary px-2 py-2.5 text-[9px] font-label-caps uppercase tracking-normal text-on-secondary transition-colors hover:bg-tertiary-container hover:text-on-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 sm:px-4 sm:text-label-caps md:px-5" to={siteConfig.bookingPath}>
+          <Link className="bg-secondary px-2 py-2.5 text-[10px] font-label-caps uppercase tracking-normal text-on-secondary transition-colors hover:bg-tertiary-container hover:text-on-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 sm:px-4 sm:text-label-caps md:px-5" to={siteConfig.bookingPath}>
             <span className="sm:hidden">Reservar</span>
             <span className="hidden sm:inline md:hidden">Reservar</span>
             <span className="hidden md:inline">Reservar cita</span>

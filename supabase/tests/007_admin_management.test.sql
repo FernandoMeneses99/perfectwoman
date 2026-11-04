@@ -1,6 +1,6 @@
 begin;
 
-select plan(17);
+select plan(18);
 
 insert into auth.users (
   id,
@@ -36,11 +36,12 @@ values
     now()
   );
 
-insert into public.admin_users (user_id, email, display_name)
+insert into public.admin_users (user_id, email, display_name, role)
 values (
   '00000000-0000-4000-8000-000000000011',
   'admin-manager-test@perfectwoman.local',
-  'Admin Manager'
+  'Admin Manager',
+  'owner'
 );
 
 select set_config(
@@ -210,6 +211,19 @@ select is(
   (select count(*)::int from public.admin_list_admin_users()),
   2,
   'the admin list includes both active administrators'
+);
+
+select throws_ok(
+  $$select *
+    from public.admin_upsert_admin_user(
+      'admin-manager-test@perfectwoman.local',
+      'Admin Manager',
+      true,
+      'admin'
+    )$$,
+  'PT409',
+  'LAST_OWNER_REQUIRED',
+  'the last owner cannot demote themselves'
 );
 
 select throws_ok(

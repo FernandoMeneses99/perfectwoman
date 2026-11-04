@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /gestion-perfectwoman
+Disallow: /opinion/
+Disallow: /fidelidad/
 
 Sitemap: https://perfectwoman.vercel.app/sitemap.xml

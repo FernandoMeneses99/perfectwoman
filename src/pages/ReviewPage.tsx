@@ -84,6 +84,11 @@ export default function ReviewPage() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
+    if (!invitation) {
+      setSubmitError('No pudimos validar tu invitación. Recarga la página e inténtalo de nuevo.')
+      return
+    }
+
     if (rating === 0) {
       setSubmitError('Selecciona una calificación de 1 a 5 estrellas.')
       return
@@ -99,6 +104,7 @@ export default function ReviewPage() {
         rating,
         message: message.trim(),
         consent,
+        policyVersion: invitation.privacy_policy_version,
       })
       setSubmitted(true)
     } catch (error) {
@@ -306,7 +312,7 @@ export default function ReviewPage() {
                 >
                   política de privacidad
                 </Link>
-                .
+                {' '}(versión {invitation.privacy_policy_version}).
               </span>
             </label>
 

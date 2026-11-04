@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
 import { mapAdminError } from '../../lib/admin'
 import { fetchAdminUsers, saveAdminUser } from '../../lib/adminCatalog'
-import type { AdminUser } from '../../lib/adminCatalog'
+import type { AdminUser, AdminUserRole } from '../../lib/adminCatalog'
 import AdminModal from './AdminModal'
 
 type AdminUserFormProps = {
@@ -14,6 +14,7 @@ type AdminUserFormProps = {
 function AdminUserForm({ admin, onClose, onSaved }: AdminUserFormProps) {
   const [email, setEmail] = useState(admin?.email ?? '')
   const [displayName, setDisplayName] = useState(admin?.display_name ?? '')
+  const [role, setRole] = useState<AdminUserRole>(admin?.role ?? 'admin')
   const [active, setActive] = useState(admin?.active ?? true)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -28,6 +29,7 @@ function AdminUserForm({ admin, onClose, onSaved }: AdminUserFormProps) {
         email: email.trim().toLowerCase(),
         displayName: displayName.trim() || null,
         active,
+        role,
       })
       onSaved()
     } catch (submitError) {
@@ -68,6 +70,18 @@ function AdminUserForm({ admin, onClose, onSaved }: AdminUserFormProps) {
           />
         </label>
 
+        <label className="flex flex-col gap-1 font-body-sm text-body-sm text-on-surface-variant">
+          Rol
+          <select
+            className="border border-surface-container bg-surface-container-lowest px-3 py-2.5 font-body-md text-body-md text-primary outline-none focus:border-secondary"
+            onChange={(event) => setRole(event.target.value as AdminUserRole)}
+            value={role}
+          >
+            <option value="admin">Administrador</option>
+            <option value="owner">Propietario</option>
+          </select>
+        </label>
+
         <label className="flex items-center gap-2 font-body-sm text-body-sm text-on-surface-variant">
           <input
             checked={active}
@@ -78,8 +92,8 @@ function AdminUserForm({ admin, onClose, onSaved }: AdminUserFormProps) {
         </label>
 
         <p className="border-l-2 border-surface-container bg-surface-container-low px-3 py-2 font-body-sm text-body-sm text-on-surface-variant">
-          El correo debe existir primero en Supabase Auth. No puedes desactivar tu
-          propio acceso.
+          El correo debe existir primero en Supabase Auth. Solo la cuenta propietaria
+          puede gestionar accesos y debe quedar al menos una propietaria activa.
         </p>
 
         {error && (
@@ -147,6 +161,7 @@ export default function AdminUsersManager() {
         email: admin.email,
         displayName: admin.display_name,
         active: !admin.active,
+        role: admin.role,
       })
       await loadAdmins()
     } catch (toggleError) {
@@ -215,6 +230,9 @@ export default function AdminUsersManager() {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-space-sm">
+                  <span className="bg-surface-container px-2.5 py-1 font-label-caps text-[10px] uppercase tracking-wider text-primary">
+                    {admin.role === 'owner' ? 'Propietario' : 'Administrador'}
+                  </span>
                   <span
                     className={`px-2.5 py-1 font-label-caps text-[10px] uppercase tracking-wider ${
                       admin.active

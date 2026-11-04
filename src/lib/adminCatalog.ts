@@ -91,10 +91,13 @@ export type AdminScheduleBlockInput = {
   reason: string | null
 }
 
+export type AdminUserRole = 'owner' | 'admin'
+
 export type AdminUser = {
   user_id: string
   email: string
   display_name: string | null
+  role: AdminUserRole
   active: boolean
   created_at: string
 }
@@ -103,6 +106,7 @@ export type AdminUserInput = {
   email: string
   displayName: string | null
   active: boolean
+  role: AdminUserRole
 }
 
 export async function fetchAdminServices(): Promise<AdminService[]> {
@@ -292,6 +296,7 @@ export async function saveAdminUser(input: AdminUserInput): Promise<void> {
     p_email: input.email,
     p_display_name: input.displayName,
     p_active: input.active,
+    p_role: input.role,
   })
 
   if (error) {
