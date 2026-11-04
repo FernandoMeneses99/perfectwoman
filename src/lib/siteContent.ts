@@ -111,7 +111,7 @@ export const fallbackSiteContent: SiteContent = {
     imageAlt: 'Ambiente del estudio Perfect Woman T en Bogotá',
     badge: 'Atelier Bogotá',
     cardTitle: 'Estudio de mirada',
-    year: '2025',
+    year: '2026',
   },
   metrics: [
     { value: '+5', label: 'Años de experiencia' },
