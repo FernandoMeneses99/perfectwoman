@@ -3,6 +3,7 @@ import { FaWhatsapp } from 'react-icons/fa'
 import { siteConfig } from '../../data/site'
 import { dateInTimeZone, formatDateLong, formatDateTimeLong, formatTime } from '../../lib/dates'
 import type { AdminAppointment, AppointmentStatus } from '../../lib/admin'
+import { buildAppointmentReminderMessage, whatsappUrl } from '../../lib/whatsapp'
 
 type AdminAppointmentCardProps = {
   appointment: AdminAppointment
@@ -31,12 +32,6 @@ const statusStyles: Record<AppointmentStatus, string> = {
   no_show: 'bg-zinc-200 text-zinc-700',
 }
 
-function whatsappHref(phone: string): string {
-  const digits = phone.replace(/\D/g, '')
-  const normalized = digits.startsWith('57') ? digits : `57${digits}`
-  return `https://wa.me/${normalized}`
-}
-
 export default function AdminAppointmentCard({
   appointment,
   updating,
@@ -50,6 +45,12 @@ export default function AdminAppointmentCard({
   const [expanded, setExpanded] = useState(false)
   const appointmentDate = dateInTimeZone(appointment.starts_at, siteConfig.timeZone)
   const isTerminal = ['completed', 'cancelled', 'no_show'].includes(appointment.status)
+  const clientPhone = appointment.client?.phone ?? ''
+  const reminderMessage =
+    appointment.status === 'confirmed'
+      ? buildAppointmentReminderMessage(appointment)
+      : undefined
+  const clientWhatsappUrl = clientPhone ? whatsappUrl(clientPhone, reminderMessage) : ''
 
   return (
     <article className="border border-surface-container bg-surface-container-lowest shadow-sm">
@@ -144,22 +145,22 @@ export default function AdminAppointmentCard({
           )}
 
           <div className="mt-space-md flex flex-wrap gap-space-sm">
-            {appointment.client?.phone && (
+            {clientWhatsappUrl && (
               <>
                 <a
                   className="flex items-center gap-2 border border-surface-container bg-surface-container-lowest px-3 py-2 font-label-caps text-[10px] uppercase tracking-wider text-primary transition-colors hover:border-secondary"
-                  href={`tel:${appointment.client.phone}`}
+                  href={`tel:${clientPhone}`}
                 >
                   Llamar
                 </a>
                 <a
                   className="flex items-center gap-2 border border-surface-container bg-surface-container-lowest px-3 py-2 font-label-caps text-[10px] uppercase tracking-wider text-primary transition-colors hover:border-secondary"
-                  href={whatsappHref(appointment.client.phone)}
+                  href={clientWhatsappUrl}
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   <FaWhatsapp aria-hidden="true" className="text-secondary" />
-                  WhatsApp
+                  {appointment.status === 'confirmed' ? 'Enviar recordatorio' : 'WhatsApp'}
                 </a>
               </>
             )}
@@ -197,6 +198,17 @@ export default function AdminAppointmentCard({
 
             {appointment.status === 'confirmed' && (
               <>
+                {clientWhatsappUrl && (
+                  <a
+                    className="flex items-center gap-2 border border-emerald-600/40 bg-emerald-50 px-4 py-2 font-label-caps text-[10px] uppercase tracking-wider text-emerald-900 transition-colors hover:border-emerald-700"
+                    href={clientWhatsappUrl}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <FaWhatsapp aria-hidden="true" />
+                    Recordar por WhatsApp
+                  </a>
+                )}
                 <button
                   className="bg-primary px-4 py-2 font-label-caps text-[10px] uppercase tracking-wider text-on-primary transition-colors hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-50"
                   disabled={updating}
