@@ -24,7 +24,7 @@ export default function SiteHeader() {
           ))}
         </nav>
         <div className="flex shrink-0 items-center gap-1 sm:gap-space-md">
-          <a aria-label="Instagram oficial" className="hidden h-10 w-10 items-center justify-center text-on-surface-variant transition-colors hover:bg-surface-container hover:text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2 sm:flex" href={siteConfig.instagram} rel="noopener noreferrer" target="_blank">
+          <a aria-label="Instagram oficial" className="hidden h-11 w-11 items-center justify-center text-on-surface-variant transition-colors hover:bg-surface-container hover:text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2 sm:flex" href={siteConfig.instagram} rel="noopener noreferrer" target="_blank">
             <FaInstagram aria-hidden="true" className="text-[20px]" />
           </a>
           {siteConfig.whatsapp ? (
@@ -43,7 +43,7 @@ export default function SiteHeader() {
             <span className="hidden md:inline">Reservar cita</span>
           </Link>
           <button
-            className="flex h-10 w-10 items-center justify-center text-on-surface-variant transition-colors hover:bg-surface-container hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2 xl:hidden"
+            className="flex h-11 w-11 items-center justify-center text-on-surface-variant transition-colors hover:bg-surface-container hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2 xl:hidden"
             aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
             aria-expanded={open}
             aria-controls="mobile-menu"
