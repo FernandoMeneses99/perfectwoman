@@ -77,6 +77,7 @@ export function resolvePublicMeta(pathname: string): PublicMeta {
   if (path === '/club-fidelidad') return publicMetaRoutes.loyaltyClub
   if (path === '/politica-privacidad') return publicMetaRoutes.privacy
   if (path === '/gestion-perfectwoman') return publicMetaRoutes.admin
+  if (path === '/api/meta' || path === '/__shell.html') return fallbackMeta
   if (path === '/opinion' || path.startsWith('/opinion/')) return publicMetaRoutes.review
   if (path === '/fidelidad' || path.startsWith('/fidelidad/')) return publicMetaRoutes.loyaltyCard
 
