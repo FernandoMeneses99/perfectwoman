@@ -1,6 +1,7 @@
 ﻿import { lazy, Suspense, useEffect } from 'react'
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
+import NotFoundPage from './pages/NotFoundPage'
 import ErrorBoundary from './components/ErrorBoundary'
 import SiteContentProvider from './components/SiteContentProvider'
 import './App.css'
@@ -54,7 +55,7 @@ function AppRoutes() {
           <Route element={<LoyaltyClubPage />} path="/club-fidelidad" />
           <Route element={<ReviewPage />} path="/opinion/:token" />
           <Route element={<AdminPage />} path="/gestion-perfectwoman" />
-          <Route element={<Navigate replace to="/" />} path="*" />
+          <Route element={<NotFoundPage />} path="*" />
         </Routes>
       </Suspense>
     </ErrorBoundary>

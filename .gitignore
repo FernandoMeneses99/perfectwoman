@@ -2,3 +2,6 @@
 dist
 dist-ssr
 *.local
+
+# Playwright MCP artifacts
+.playwright-mcp

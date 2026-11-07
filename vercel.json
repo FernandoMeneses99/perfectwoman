@@ -3,7 +3,27 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/reservas",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/club-fidelidad",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/politica-privacidad",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/gestion-perfectwoman",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/opinion/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/fidelidad/:path*",
       "destination": "/index.html"
     }
   ],
