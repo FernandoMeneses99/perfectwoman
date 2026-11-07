@@ -17,19 +17,14 @@ import AdminTabs from '../components/admin/AdminTabs'
 import AdminUsersManager from '../components/admin/AdminUsersManager'
 import AdminLoyaltyManager from '../components/admin/AdminLoyaltyManager'
 import type { AdminSection } from '../components/admin/AdminTabs'
-import { siteConfig } from '../data/site'
 import { fetchAdminProfile, mapAccessError, signOutAdmin } from '../lib/admin'
 import type { AdminProfile } from '../lib/admin'
+import { publicMetaRoutes } from '../lib/publicMeta'
 import { usePageMeta } from '../lib/seo'
 import { supabase } from '../lib/supabase'
 
 export default function AdminPage() {
-  usePageMeta({
-    title: `Panel administrativo · ${siteConfig.brand}`,
-    description: 'Panel administrativo de Perfect Woman T.',
-    path: '/gestion-perfectwoman',
-    noIndex: true,
-  })
+  usePageMeta(publicMetaRoutes.admin)
 
   const [session, setSession] = useState<Session | null>(null)
   const [checkingSession, setCheckingSession] = useState(true)

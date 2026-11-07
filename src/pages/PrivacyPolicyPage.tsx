@@ -5,14 +5,11 @@ import {
   privacyPolicyUpdated,
   privacyPolicyVersion,
 } from '../data/privacy'
+import { publicMetaRoutes } from '../lib/publicMeta'
 import { usePageMeta } from '../lib/seo'
 
 export default function PrivacyPolicyPage() {
-  usePageMeta({
-    title: 'Política de privacidad | Perfect Woman T',
-    description: 'Política de privacidad y tratamiento de datos personales de Perfect Woman T.',
-    path: '/politica-privacidad',
-  })
+  usePageMeta(publicMetaRoutes.privacy)
 
   return (
     <PageShell>

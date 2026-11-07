@@ -4,30 +4,43 @@
   "rewrites": [
     {
       "source": "/reservas",
-      "destination": "/index.html"
+      "destination": "/api/meta?__pm_path=/reservas"
     },
     {
       "source": "/club-fidelidad",
-      "destination": "/index.html"
+      "destination": "/api/meta?__pm_path=/club-fidelidad"
     },
     {
       "source": "/politica-privacidad",
-      "destination": "/index.html"
+      "destination": "/api/meta?__pm_path=/politica-privacidad"
     },
     {
       "source": "/gestion-perfectwoman",
-      "destination": "/index.html"
+      "destination": "/api/meta?__pm_path=/gestion-perfectwoman"
     },
     {
       "source": "/opinion/:path*",
-      "destination": "/index.html"
+      "destination": "/api/meta?__pm_path=/opinion/:path*"
     },
     {
       "source": "/fidelidad/:path*",
-      "destination": "/index.html"
+      "destination": "/api/meta?__pm_path=/fidelidad/:path*"
     }
   ],
   "headers": [
+    {
+      "source": "/__shell.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [
@@ -103,6 +116,15 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/api/meta",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
         }
       ]
     }

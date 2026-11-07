@@ -3,5 +3,7 @@ Allow: /
 Disallow: /gestion-perfectwoman
 Disallow: /opinion/
 Disallow: /fidelidad/
+Disallow: /api/
+Disallow: /__shell.html
 
 Sitemap: https://perfectwoman.vercel.app/sitemap.xml

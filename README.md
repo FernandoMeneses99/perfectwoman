@@ -97,6 +97,15 @@ Las imágenes reales están en `public/images` y se referencian como
 - Toda reseña entra como `pending` y se publica solo después de moderarla.
 - La versión vigente de la política de privacidad se lee de `settings`.
 
+## SEO y metadatos sociales
+
+- `src/lib/publicMeta.ts` es la fuente única de títulos, descripciones y metadatos sociales por ruta (home, reservas, fidelidad, privacidad, admin, opinión y tarjeta).
+- `api/meta.ts` es una Edge Function: recibe las rutas internas desde `vercel.json`, lee `dist/__shell.html` y sustituye el bloque marcado con `meta:start` / `meta:end` según la ruta. Así WhatsApp, Facebook y LinkedIn ven los metadatos correctos sin ejecutar JavaScript.
+- `scripts/create-shell.mjs` corre al final de `pnpm build` y genera el shell. No edites `dist/__shell.html` a mano.
+- `/__shell.html` y `/api/meta` responden con `X-Robots-Tag: noindex`.
+- La home `/` sigue sirviéndose estática. Solo las rutas internas pasan por el edge.
+- Al cambiar un título o una descripción, hazlo en `src/lib/publicMeta.ts`; las páginas de React lo importan para no divergir.
+
 ## Despliegue
 
 Vercel construye con `pnpm build` y publica `dist`. Los headers de seguridad

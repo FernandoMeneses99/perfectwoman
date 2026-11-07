@@ -12,17 +12,13 @@ import {
   submitPublicReview,
 } from '../lib/reviews'
 import type { ReviewInvitationDetails } from '../lib/reviews'
+import { publicMetaRoutes } from '../lib/publicMeta'
 import { usePageMeta } from '../lib/seo'
 
 const ratingLabels = ['', 'Muy mala', 'Mala', 'Regular', 'Muy buena', 'Excelente']
 
 export default function ReviewPage() {
-  usePageMeta({
-    title: 'Comparte tu experiencia | Perfect Woman T',
-    description: 'Cuéntanos cómo fue tu experiencia en Perfect Woman T.',
-    path: '/opinion',
-    noIndex: true,
-  })
+  usePageMeta(publicMetaRoutes.review)
 
   const { token = '' } = useParams<{ token: string }>()
   const [invitation, setInvitation] = useState<ReviewInvitationDetails | null>(null)

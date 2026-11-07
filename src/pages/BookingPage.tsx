@@ -5,6 +5,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import PageShell from '../components/layout/PageShell'
 import { siteConfig } from '../data/site'
 import { addDays, formatDateLong, formatDateTimeLong, formatTime, todayInTimeZone } from '../lib/dates'
+import { publicMetaRoutes } from '../lib/publicMeta'
 import { usePageMeta } from '../lib/seo'
 import {
   createPublicBooking,
@@ -52,11 +53,7 @@ function mapBookingError(error: unknown): string {
 }
 
 export default function BookingPage() {
-  usePageMeta({
-    title: 'Reserva tu cita | Perfect Woman T',
-    description: 'Elige tu servicio, fecha y hora. Tu cita queda pendiente y la confirmamos por WhatsApp.',
-    path: '/reservas',
-  })
+  usePageMeta(publicMetaRoutes.booking)
 
   const [searchParams] = useSearchParams()
   const requestedSlug = searchParams.get('servicio')

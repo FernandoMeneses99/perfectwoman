@@ -3,6 +3,7 @@ import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import PageShell from '../components/layout/PageShell'
 import { siteConfig } from '../data/site'
+import { publicMetaRoutes } from '../lib/publicMeta'
 import { usePageMeta } from '../lib/seo'
 
 const steps = [
@@ -12,11 +13,7 @@ const steps = [
 ]
 
 export default function LoyaltyClubPage() {
-  usePageMeta({
-    title: `Club de fidelidad · ${siteConfig.brand}`,
-    description: 'Conoce el programa de fidelidad de Perfect Woman T y consulta tu tarjeta digital.',
-    path: '/club-fidelidad',
-  })
+  usePageMeta(publicMetaRoutes.loyaltyClub)
   const navigate = useNavigate()
   const [token, setToken] = useState('')
 

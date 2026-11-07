@@ -5,6 +5,7 @@ import PageShell from '../components/layout/PageShell'
 import { siteConfig } from '../data/site'
 import { fetchPublicLoyaltyCard } from '../lib/loyalty'
 import type { PublicLoyaltyCard } from '../lib/loyalty'
+import { publicMetaRoutes } from '../lib/publicMeta'
 import { usePageMeta } from '../lib/seo'
 
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
@@ -21,12 +22,7 @@ export default function PublicLoyaltyCardPage() {
   const current = result.token === token ? result : { token, loading: true, card: null, error: null }
   const publicCard = current.card
 
-  usePageMeta({
-    title: `Tarjeta de fidelidad · ${siteConfig.brand}`,
-    description: 'Consulta el avance de tu tarjeta de fidelidad de Perfect Woman T.',
-    path: `/fidelidad/${token}`,
-    noIndex: true,
-  })
+  usePageMeta(publicMetaRoutes.loyaltyCard)
 
   useEffect(() => {
     let active = true
