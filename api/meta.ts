@@ -33,9 +33,8 @@ function resolveRequestPath(request: Request): string {
   const rewritePath = url.searchParams.get('__pm_path')
 
   if (rewritePath) return rewritePath
-  if (url.pathname !== '/api/meta') return url.pathname
 
-  return '/'
+  return url.pathname
 }
 
 const metaBlockPattern = /<!--meta:start-->[\s\S]*?<!--meta:end-->/
